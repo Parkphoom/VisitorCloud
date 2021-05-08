@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_bg_light"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    tools:context=".Login.LoginActivity">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/view2"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_centerHorizontal="true"
+        android:elevation="12dp"
+        android:innerRadius="0dp"
+        android:shape="ring"
+        android:thicknessRatio="2.0"
+        app:cardCornerRadius="80dp"
+        app:layout_constraintBottom_toTopOf="@+id/username_edt_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/waclogo" />
+    </androidx.cardview.widget.CardView>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/username_edt_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="26dp"
+        android:hint="@string/username"
+        android:textColorHint="@color/adrift_in_dreams"
+        android:theme="@style/EditTextThemeOverlay"
+        app:boxStrokeColor="@color/adrift_in_dreams"
+        app:endIconMode="clear_text"
+        app:errorTextAppearance="@style/ErrorTextAppearance"
+        app:hintTextAppearance="@style/HintTextAppearance"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/username_edt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/icons8_user_24px_2"
+            android:drawablePadding="10dp"
+            android:inputType="textNoSuggestions"
+            android:paddingTop="20dp"
+            android:paddingEnd="20dp"
+            android:textColor="@color/adrift_in_dreams" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/password_edt_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:hint="@string/password"
+        android:textColorHint="@color/adrift_in_dreams"
+        android:theme="@style/EditTextThemeOverlay"
+        app:boxStrokeColor="@color/adrift_in_dreams"
+        app:endIconMode="password_toggle"
+        app:errorTextAppearance="@style/ErrorTextAppearance"
+        app:hintTextAppearance="@style/HintTextAppearance"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/username_edt_layout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password_edt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/icons8_password_24px_1"
+            android:drawablePadding="10dp"
+            android:inputType="textPassword"
+            android:paddingTop="20dp"
+            android:paddingEnd="20dp"
+            android:textColor="@color/adrift_in_dreams"
+            android:textColorHighlight="@color/adrift_in_dreams" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/login_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="22dp"
+        android:padding="10dp"
+        android:text="@string/login"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="10dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

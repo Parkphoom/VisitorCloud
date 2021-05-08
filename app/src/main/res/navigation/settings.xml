@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/settings"
+    app:startDestination="@id/settingscreen">
+
+    <fragment
+        android:id="@+id/settingscreen"
+        android:name="com.wacinfo.visitorcloud.ui.Settings.SettingsFragment"
+        android:label="Setting"
+        tools:layout="@layout/settings_fragment">
+        <action
+            android:id="@+id/action_setting_to_list"
+            app:destination="@id/listScreen"/>
+    </fragment>
+    <fragment
+        android:id="@+id/listScreen"
+        android:name="com.wacinfo.visitorcloud.ui.Settings.TypelistFragment"
+        android:label="Typelist"
+        tools:layout="@layout/fragment_typelist"/>
+</navigation>

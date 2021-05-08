@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <RelativeLayout
+
+        android:id="@+id/BlacklistLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/Parking"
+            android:textColor="#000000"
+            android:textSize="22sp" />
+
+        <LinearLayout
+            android:id="@+id/linear1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/header"
+            android:background="@drawable/border_2line"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/vid_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/border_underline"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/txt_vid" />
+
+                <TextView
+                    android:id="@+id/vid_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/carId_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/vid_layout"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/border_underline"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/txt_license_plate" />
+
+                <TextView
+                    android:id="@+id/carId_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/statusin_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/border_underline"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/time_in" />
+
+                <TextView
+                    android:id="@+id/statusin_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/statusout_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/border_underline"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/status_out" />
+
+                <TextView
+                    android:id="@+id/statusout_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/linear2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/linear1"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/border_2line"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/texttype_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:gravity="center"
+                android:text="@string/charge_type" />
+
+            <belka.us.androidtoggleswitch.widgets.ToggleSwitch
+                android:id="@+id/multiple_toggle_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:activeBgColor="@color/sea_showing_green"
+                app:activeTextColor="@android:color/white"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp" />
+
+            <LinearLayout
+                android:id="@+id/parkingtime_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/border_underline"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/Parking_time" />
+
+                <TextView
+                    android:id="@+id/parkingtime_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/parkingfree_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/border_underline"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/Parking_freetime" />
+
+                <TextView
+                    android:id="@+id/parkingfree_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/visitortype_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/border_underline"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/txt_visitor_type" />
+
+                <TextView
+                    android:id="@+id/visitortype_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/editprice_text_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/printSwitch"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:hint="@string/Parking_fees"
+            android:textColorHint="@color/grey_active"
+            app:endIconMode="clear_text"
+            app:hintTextColor="@color/grey_active">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editprice_text_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionDone"
+                android:inputType="numberDecimal" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/printSwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_above="@id/btn_layout"
+            android:checked="true"
+            android:text="@string/print_slip" />
+        <LinearLayout
+            android:id="@+id/btn_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            android:padding="5dp">
+            <Button
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:theme="@style/ButtonGreen"
+                android:id="@+id/Paid_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="5dp"
+                android:padding="10dp"
+                android:layout_weight="1"
+                android:text="@string/paid"
+                android:textColor="@color/white" />
+            <Button
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:theme="@style/ButtonRed"
+                android:id="@+id/Unpaid_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="3dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:text="@string/No_paid"
+                android:textColor="@color/white" />
+
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

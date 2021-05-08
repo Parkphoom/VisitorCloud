@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.Security.SecurityFragment">
+
+    <belka.us.androidtoggleswitch.widgets.ToggleSwitch
+        android:layout_centerHorizontal="true"
+        android:id="@+id/list_mode_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="10dp"
+        app:activeBgColor="@color/red_primary"
+        app:activeTextColor="@android:color/white"
+        app:inactiveBgColor="@android:color/darker_gray"
+        app:inactiveTextColor="@color/black"
+        app:separatorColor="@color/gray_very_light"
+        app:textToggleLeft="@string/Blacklist"
+        app:toggleWidth="104dp"
+        app:textToggleRight="@string/Whitelist" />
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/list_mode_switch"
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="3dp"
+        android:enabled="false">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_securitylist"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/security_item"
+                />
+
+        </FrameLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+</RelativeLayout>

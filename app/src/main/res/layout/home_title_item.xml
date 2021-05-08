@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:id="@id/container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_marginBottom="1dp"
+        android:id="@+id/type_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <TextView
+            android:background="@color/blue_grey_bg_light"
+            android:id="@+id/typeName_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="40"
+            android:padding="8dp"
+            android:text="@string/type"
+            android:textAlignment="center"
+            android:textColor="@color/adrift_in_dreams"
+            android:textSize="@dimen/text_size" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:background="@color/grey_light_active" />
+
+        <TextView
+            android:id="@+id/txtIn_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="20"
+            android:padding="8dp"
+            android:text="@string/in"
+            android:textAlignment="center"
+            android:textColor="@color/adrift_in_dreams"
+            android:textSize="@dimen/text_size" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:background="@color/grey_light_active" />
+
+        <TextView
+            android:id="@+id/txtOut_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="20"
+            android:padding="8dp"
+            android:text="@string/out"
+            android:textAlignment="center"
+            android:textColor="@color/adrift_in_dreams"
+            android:textSize="@dimen/text_size" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:background="@color/grey_light_active" />
+
+        <TextView
+            android:id="@+id/txtRemain_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="20"
+            android:padding="8dp"
+            android:text="@string/remain"
+            android:textAlignment="center"
+            android:textColor="@color/adrift_in_dreams"
+            android:textSize="@dimen/text_size" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+    <View
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey_light_active"/>
+
+</FrameLayout>

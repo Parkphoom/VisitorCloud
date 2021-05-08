@@ -1,0 +1,211 @@
+<resources>
+    <string name="app_name">VisitorCloud</string>
+
+    <!--    <string name="User_ID">5fe2c8a089d27d3818e4bcba</string>-->
+        <string name="URL">https://api.visitors.wacappcloud.com/</string>
+        <string name="PORT" />
+<!--    <string name="URL">http://10.0.0.205:</string>-->
+<!--    <string name="PORT">4004/</string>-->
+    <string name="API_Property">property/</string>
+    <string name="API_VisitorType">visitorType/</string>
+    <string name="API_LicensePlate">licensePlate/</string>
+    <string name="API_ContactTopic">contactTopic/</string>
+    <string name="API_Whitelist">whitelist/</string>
+    <string name="API_VisitFrom">visitFrom/</string>
+    <string name="API_VisitPerson">visitPerson/</string>
+    <string name="API_VehicleType">vehicleType/</string>
+    <string name="API_Department">department/</string>
+    <string name="API_VisitPlace">visitPlace/</string>
+    <string name="API_Blacklist">blacklist/</string>
+    <string name="API_Login">login</string>
+    <string name="API_Logout">logout</string>
+    <string name="API_Token">token</string>
+    <string name="API_Activate">activate</string>
+    <string name="API_Getlog">visitorLog</string>
+    <string name="API_Getinfo">visitorInfo</string>
+    <string name="API_CheckNum">checkNum/</string>
+    <string name="API_VisitorUp">visitorUp/</string>
+    <string name="API_GetImages">view/images/</string>
+    <string name="API_GetLogo">view/logo/</string>
+    <string name="API_BookingVID">bookingVisitorNumber</string>
+    <string name="API_Report">visitorReport</string>
+    <string name="API_GetCost">cost</string>
+    <string name="API_PostCost">costUp/</string>
+    <string name="API_Appointment">meeting/</string>
+    <string name="API_Logo">logo/</string>
+
+    //Rules
+    <string name="RULE_Master_admin">master admin</string>
+    <string name="RULE_Admin">admin</string>
+    <string name="RULE_User">user</string>
+
+    <string name="RULE_FAIL">ชื่อผู้ใช้ดังกล่าวไม่สามารถใช้งานได้</string>
+
+    //Active mode
+    <string name="Active_Mode_Normal">ปกติ</string>
+    <string name="Active_Mode_Parking">คิดเงิน</string>
+
+    //Active Status
+    <string name="Activate_ready">READY ACTIVATE</string>
+    <string name="Active_cannot">This device has not been registered.</string>
+
+
+    <string name="wac_infotech">Wac infotech,Inc</string>
+    <string name="activate">Activate</string>
+    <string name="activate_license">Activate license</string>
+    <string name="activate_license_fail">Activate license failed, please try again</string>
+
+    <string name="hint_activate_prodct_2">Don\'t have license key? Please contact the seller</string>
+    <string name="hint_get_key1">To get activate a license, click on the \"Get device ID\" button and copy the device ID.</string>
+    <string name="hint_get_key2">Contact the seller and send device id for activate license key</string>
+    <string name="hint_get_key3">Copy license key and paste it to above. Click \"Activate\" to continue</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Log in</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_home">Home</string>
+    <string name="title_setting">Settings</string>
+    <string name="title_delete">Delete</string>
+    <string name="title_export">Export</string>
+    <string name="in">เข้า</string>
+    <string name="out">ออก</string>
+    <string name="type">ประเภท</string>
+    <string name="remain">ตกค้าง</string>
+    <string name="stay">ข้ามวัน</string>
+    <string name="txt_vid">หมายเลข Visitor</string>
+    <string name="txt_visitor_type">ประเภท Visitor</string>
+    <string name="name_th">ชื่อ</string>
+    <string name="cid_th">เลขประจำตัวประชาชน</string>
+    <string name="time_in">เวลาเข้า</string>
+    <string name="time_out">เวลาออก</string>
+    <string name="txt_visitor_place">สถานที่ติดต่อ</string>
+    <string name="txt_vehicle_type">พาหนะ</string>
+    <string name="txt_license_plate">ทะเบียน</string>
+    <string name="cancel_en">Cancle</string>
+    <string name="success_en">Success</string>
+    <string name="next">next</string>
+    <string name="next_th">ต่อไป</string>
+    <string name="auto_visitor_id">Auto Visitor Id</string>
+    <string name="print">Print</string>
+    <string name="print_th">การพิมพ์</string>
+    <string name="txt_ternimal_in">ประตูเข้า</string>
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="SharePreferencesSetting">SharePreferencesSetting</string>
+    <string name="Pref_CompanyName">Preferences company name</string>
+    <string name="Pref_Terminal">Preferences terminal name</string>
+    <string name="Pref_Watermark">Preferences watermark</string>
+    <string name="Pref_Setting_QR">Preferences setting QR</string>
+    <string name="Pref_Setting_SG">Preferences setting Signature</string>
+    <string name="Pref_Setting_EP">Preferences setting Endpage</string>
+    <string name="Pref_Setting_EP_Text">Preferences setting Endpage text</string>
+    <string name="Pref_Login_Status">Preferences login status</string>
+    <string name="Pref_Login_Username">Preferences login username</string>
+    <string name="Pref_Login_Password">Preferences login password</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add">เพิ่ม</string>
+    <string name="save">บันทึก</string>
+    <string name="edit">แก้ไข</string>
+    <string name="delete_data_th">ลบข้อมูล</string>
+    <string name="cancel_th">ยกเลิก</string>
+    <string name="accept_th">ตกลง</string>
+    <string name="txt_old_name">ชื่อเก่า</string>
+    <string name="txt_new_name">ชื่อใหม่</string>
+    <string name="error_emptytext">กรุณากรอกข้อมูล</string>
+    <string name="device_id">Device ID</string>
+
+    <string name="necessary">จำเป็น</string>
+    <string name="Complete">complete</string>
+    <string name="save_success">บันทึกสำเร็จ</string>
+    <string name="hint_input_vid">ไม่สามารถแสกนได้? กรอกหมายเลข Visitor</string>
+    <string name="flash_btn">flash btn</string>
+    <string name="out_accept">อนุญาตผ่าน</string>
+    <string name="out_cancle">ไม่อนุญาต</string>
+    <string name="empty">-</string>
+    <string name="txt_ternimal_out">ประตูออก</string>
+    <string name="txt_ternimal">ประตู</string>
+    <string name="company">บริษัท</string>
+    <string name="txt_watermetk">ลายน้ำของรูปภาพ</string>
+    <string name="visitor_detail">รายละเอียดผู้เข้าพบ</string>
+    <string name="No_Data">ไม่พบข้อมูล</string>
+    <string name="title_Log">Log</string>
+    <string name="no_more_load_retry">ไม่มีข้อมูล รีเฟรชเพื่อลองอีกครั้ง.</string>
+    <string name="endless_disabled">No more items to load (max reached).</string>
+    <string name="endless_cancel">Cancelled by the user.</string>
+    <string name="endless_error">An error occurred while loading more items.</string>
+    <string name="no_items">No item</string>
+    <string name="no_items_found">No data found</string>
+    <string name="search">ค้นหา</string>
+    <string name="some_error">เกิดข้อผิดพลาด</string>
+    <string name="fail">ล้มเหลว</string>
+    <string name="settinglogopath">Logoimagepath</string>
+    <string name="settinhprintheadertext">textheader1</string>
+    <string name="general">ทั่วไป</string>
+    <string name="logo">โลโก้</string>
+    <string name="info">ข้อมูล</string>
+
+    <string name="Parking">ชำระค่าบริการจอดรถ</string>
+    <string name="paid">ชำระค่าบริการ</string>
+    <string name="Parking_fees">ค่าบริการจอดรถ(บาท)</string>
+    <string name="status_out">เวลาออก</string>
+    <string name="Parking_time">เวลาจอดรถทั้งหมด</string>
+    <string name="Parking_freetime">จอดฟรี (ชม.)</string>
+    <string name="charge_type">ประเภทการเก็บเงิน</string>
+    <string name="No_paid">ไม่คิดค่าบริการ</string>
+    <string name="homeid">Home Id</string>
+    <string name="news">News</string>
+    <string name="market">Market</string>
+    <string name="parcel">Parcel</string>
+    <string name="visitor">Visitor</string>
+    <string name="service">Service</string>
+    <string name="payment">Payment</string>
+    <string name="menu">Menu</string>
+    <string name="appointment">การนัดหมาย</string>
+    <string name="txt_appointment_time">เวลานัด</string>
+    <string name="Skip">ข้าม</string>
+    <string name="blacklist_whitelist">Blacklist/whitelist</string>
+    <string name="Blacklist">Blacklist</string>
+    <string name="Whitelist">Whitelist</string>
+    <string name="txt_time_start">เวลาเริ่ม</string>
+    <string name="txt_time_end">เวลาจบ</string>
+    <string name="IcCardLoading">กำลังอ่าน อย่านำบัตรออกจนกว่าจะเสร็จ</string>
+    <string name="close_th">ปิด</string>
+    <string name="print_slip">พิมพ์บัตรผ่าน</string>
+    <string name="do_not_print_slip">ไม่พิมพ์บัตรผ่าน</string>
+    <string name="qrCode">QR Code</string>
+    <string name="txt_signature">ช่องประทับตรา/ลายเซ็น</string>
+    <string name="txt_endpage">ข้อความท้ายกระดาษ</string>
+    <string name="print_detail">รายละเอียดการพิมพ์</string>
+
+    <string-array name="items_per_page">
+        <item>10</item>
+        <item>20</item>
+        <item>25</item>
+        <item>50</item>
+        <item>All</item>
+    </string-array>
+</resources>

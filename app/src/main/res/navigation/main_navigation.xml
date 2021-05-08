@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/titleScreen"
+    android:id="@+id/main_navigation">
+    <fragment
+        android:id="@+id/titleScreen"
+        android:name="com.wacinfo.visitorcloud.ui.homescreen.Title"
+        android:label=""
+        tools:layout="@layout/fragment_title">
+        <action
+            android:id="@+id/action_title_to_about"
+            app:destination="@id/aboutScreen" />
+        <action
+            android:id="@+id/action_title_to_detail"
+            app:destination="@id/detailScreen" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/aboutScreen"
+        android:name="com.wacinfo.visitorcloud.ui.homescreen.About"
+        android:label="about"
+        tools:layout="@layout/fragment_about" />
+
+    <fragment
+        android:id="@+id/detailScreen"
+        android:name="com.wacinfo.visitorcloud.ui.detail.DetailFragment"
+        android:label="Detail"
+        tools:layout="@layout/detail_fragment">
+        <action
+            android:id="@+id/action_detail_to_appointment"
+            app:destination="@id/appointmentListScreen">
+
+        </action>
+    </fragment>
+    <action
+        android:id="@+id/action_detail_to_appointment"
+        app:destination="@id/appointmentListScreen" />
+    <fragment
+        android:id="@+id/appointmentListScreen"
+        android:name="com.wacinfo.visitorcloud.ui.detail.AppointmentListFragment"
+        android:label="@string/appointment"
+        tools:layout="@layout/appointment_list_fragment">
+    </fragment>
+
+    <fragment
+        android:id="@+id/logScreen"
+        android:name="com.wacinfo.visitorcloud.ui.log.LogFragment"
+        android:label="@string/title_Log"
+        tools:layout="@layout/log_fragment" />
+
+    <fragment
+        android:id="@+id/settingscreen"
+        android:name="com.wacinfo.visitorcloud.ui.Settings.SettingsFragment"
+        android:label="Setting"
+        tools:layout="@layout/settings_fragment">
+        <action
+            android:id="@+id/action_setting_to_list"
+            app:destination="@id/listScreen"/>
+    </fragment>
+    <fragment
+        android:id="@+id/listScreen"
+        android:name="com.wacinfo.visitorcloud.ui.Settings.TypelistFragment"
+        android:label="Typelist"
+        tools:layout="@layout/fragment_typelist"/>
+    <fragment
+        android:id="@+id/securitylistScreen"
+        android:name="com.wacinfo.visitorcloud.ui.Security.SecurityFragment"
+        android:tag="security_fragment"
+        android:label="@string/blacklist_whitelist"
+        tools:layout="@layout/security_fragment"/>
+</navigation>

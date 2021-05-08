@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.wacinfo.visitorcloud">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-permission
+        android:name="android.permission.READ_PRIVILEGED_PHONE_STATE"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+
+    <uses-feature
+        android:name="org.apache.http.legacy"
+        android:required="false" />
+
+    <application
+        android:name=".utils.AppSettings"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.VisitorCloud"
+        android:usesCleartextTraffic="true"
+        android:windowSoftInputMode="adjustPan"
+        tools:replace="android:icon"
+        tools:targetApi="m">
+        <activity
+            android:name=".ui.AdminMenuActivity"
+            android:theme="@style/Theme.VisitorCloud.NoActionbar" />
+        <activity
+            android:name=".ui.checkout.CheckoutDetailActivity"
+            android:theme="@style/Theme.VisitorCloud.NoActionbar" />
+        <activity
+            android:name=".ui.checkout.CheckoutScannerActivity"
+            android:theme="@style/Theme.VisitorCloud.NoActionbar" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <activity
+            android:name=".Login.LoginActivity"
+            android:theme="@style/Theme.VisitorCloud.NoActionbar"></activity>
+        <activity android:name=".LicenseActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/Theme.VisitorCloud.NoActionbar"
+            android:windowSoftInputMode="adjustPan">
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".WelcomeActivity"
+            android:theme="@style/Theme.VisitorCloud.NoActionbar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

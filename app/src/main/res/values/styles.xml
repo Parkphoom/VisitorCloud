@@ -1,0 +1,11 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+
+    <style name="UpDownDialogAnimation">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowEnterAnimation">@anim/translate_up</item>
+        <item name="android:windowExitAnimation">@anim/translate_down</item>
+    </style>
+
+</resources>

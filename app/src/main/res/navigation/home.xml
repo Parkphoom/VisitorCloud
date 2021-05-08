@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home"
+    app:startDestination="@+id/titleScreen">
+
+    <fragment
+        android:id="@+id/titleScreen"
+        android:name="com.wacinfo.visitorcloud.ui.homescreen.Title"
+        android:label=""
+        tools:layout="@layout/fragment_title">
+        <action
+            android:id="@+id/action_title_to_about"
+            app:destination="@id/aboutScreen" />
+        <action
+            android:id="@+id/action_title_to_detail"
+            app:destination="@id/detailScreen" />
+
+    </fragment>
+    <action
+        android:id="@+id/action_title"
+        app:popUpTo="@id/titleScreen" />
+
+    <fragment
+        android:id="@+id/aboutScreen"
+        android:name="com.wacinfo.visitorcloud.ui.homescreen.About"
+        android:label="about"
+        tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/detailScreen"
+        android:name="com.wacinfo.visitorcloud.ui.detail.DetailFragment"
+        android:label="Detail"
+        tools:layout="@layout/detail_fragment">
+        <action
+            android:id="@+id/action_detail_to_appointment"
+            app:destination="@id/appointmentListScreen"/>
+    </fragment>
+    <action
+        android:id="@+id/action_detail_to_appointment"
+        app:destination="@id/appointmentListScreen" />
+    <fragment
+        android:id="@+id/appointmentListScreen"
+        android:name="com.wacinfo.visitorcloud.ui.detail.AppointmentListFragment"
+        android:label="@string/appointment"
+        tools:layout="@layout/appointment_list_fragment">
+    </fragment>
+</navigation>

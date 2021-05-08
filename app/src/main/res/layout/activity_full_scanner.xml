@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.checkout.CheckoutScannerActivity"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <FrameLayout
+        android:id="@+id/content_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/input_frame" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="top"
+        android:background="@color/actionbar_opacity"
+        android:minHeight="?attr/actionBarSize"
+        app:theme="@style/TransparentToolbar" />
+
+
+    <ImageView
+        android:id="@+id/flash_btn"
+        android:background="@drawable/icons8_flash_off_80px"
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="10dp"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@id/input_frame"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:contentDescription="@string/flash_btn" />
+    <ImageView
+        android:id="@+id/swapcam_btn"
+        android:background="@drawable/icons8_replace_80px"
+        android:layout_marginBottom="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_alignParentStart="true"
+        android:layout_above="@id/input_frame"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:contentDescription="@string/flash_btn" />
+    <LinearLayout
+        android:id="@+id/input_frame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/hint_input_vid" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/vid_edt_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="30dp"
+            android:hint="@string/txt_vid"
+            android:theme="@style/EditTextThemeOverlay"
+            app:boxBackgroundColor="@android:color/transparent"
+            app:boxStrokeColor="@color/adrift_in_dreams"
+            app:endIconMode="clear_text"
+            app:errorTextAppearance="@style/ErrorTextAppearance"
+            app:hintTextAppearance="@style/HintTextAppearance"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/img_card"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/vid_edt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:textColor="@color/adrift_in_dreams" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <RelativeLayout
+            android:id="@+id/next_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/orange_primary"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="@string/next"
+                android:textColor="@color/white"
+                android:textSize="@dimen/textsize_M" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/icons8_right_64px_1" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

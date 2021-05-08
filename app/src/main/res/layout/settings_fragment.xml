@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/settings_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.Settings.SettingsFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="8dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/visitor_detail"
+            android:textColor="@color/adrift_in_dreams"
+            android:textSize="@dimen/textsize_M"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/catesetting_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/doubleline"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/visitor_type_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp">
+
+                <ImageView
+                    android:id="@+id/user_logo"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/icons8_user_64px_1" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_toEndOf="@id/user_logo"
+                    android:background="@drawable/underline"
+                    android:gravity="start|center"
+                    android:paddingBottom="10dp"
+                    android:text="@string/txt_visitor_type"
+                    android:textColor="@color/adrift_in_dreams"
+                    android:textSize="14sp"
+                    app:drawableRightCompat="@drawable/ic_baseline_keyboard_arrow_right_24" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/visitor_place_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp">
+
+                <ImageView
+                    android:id="@+id/place_logo"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/icons8_place_marker_64px" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_toEndOf="@id/place_logo"
+                    android:background="@drawable/underline"
+                    android:gravity="start|center"
+                    android:paddingBottom="10dp"
+                    android:text="@string/txt_visitor_place"
+                    android:textColor="@color/adrift_in_dreams"
+                    android:textSize="14sp"
+                    app:drawableRightCompat="@drawable/ic_baseline_keyboard_arrow_right_24" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/vehicle_type_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp">
+
+                <ImageView
+                    android:id="@+id/vehicle_logo"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/icons8_car_64px" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_toEndOf="@id/vehicle_logo"
+                    android:background="@drawable/underline"
+                    android:gravity="start|center"
+                    android:paddingBottom="10dp"
+                    android:text="@string/txt_vehicle_type"
+                    android:textColor="@color/adrift_in_dreams"
+                    android:textSize="14sp"
+                    app:drawableRightCompat="@drawable/ic_baseline_keyboard_arrow_right_24" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/licenseplate_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp">
+
+                <ImageView
+                    android:id="@+id/licenseplate_logo"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/icons8_licence_plate_64px" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_toEndOf="@id/licenseplate_logo"
+                    android:background="@drawable/underline"
+                    android:gravity="start|center"
+                    android:paddingBottom="10dp"
+                    android:text="@string/txt_license_plate"
+                    android:textColor="@color/adrift_in_dreams"
+                    android:textSize="14sp"
+                    app:drawableRightCompat="@drawable/ic_baseline_keyboard_arrow_right_24" />
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/general"
+            android:textColor="@color/adrift_in_dreams"
+            android:textSize="@dimen/textsize_M"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/terminal_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/doubleline"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/company_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp">
+
+                <ImageView
+                    android:id="@+id/company_logo"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/icons8_company_64px" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_toEndOf="@id/company_logo"
+                    android:background="@drawable/underline"
+                    android:gravity="start|center"
+                    android:paddingBottom="10dp"
+                    android:text="@string/company"
+                    android:textColor="@color/adrift_in_dreams"
+                    android:textSize="14sp"
+                    app:drawableRightCompat="@drawable/ic_baseline_keyboard_arrow_right_24" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/terminal_in_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp">
+
+                <ImageView
+                    android:id="@+id/in_logo"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/icons8_gate_64px" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_toEndOf="@id/in_logo"
+                    android:background="@drawable/underline"
+                    android:gravity="start|center"
+                    android:paddingBottom="10dp"
+                    android:text="@string/txt_ternimal"
+                    android:textColor="@color/adrift_in_dreams"
+                    android:textSize="14sp"
+                    app:drawableRightCompat="@drawable/ic_baseline_keyboard_arrow_right_24" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/watermark_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp">
+
+                <ImageView
+                    android:id="@+id/watermark_logo"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/icons8_image_64px" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_toEndOf="@id/watermark_logo"
+                    android:background="@drawable/underline"
+                    android:gravity="start|center"
+                    android:paddingBottom="10dp"
+                    android:text="@string/txt_watermetk"
+                    android:textColor="@color/adrift_in_dreams"
+                    android:textSize="14sp"
+                    app:drawableRightCompat="@drawable/ic_baseline_keyboard_arrow_right_24" />
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/print_th"
+            android:textColor="@color/adrift_in_dreams"
+            android:textSize="@dimen/textsize_M"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/printer_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/doubleline"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/printDetail_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp">
+
+                <ImageView
+                    android:id="@+id/printDetail_logo"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_print" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_toEndOf="@id/printDetail_logo"
+                    android:background="@drawable/underline"
+                    android:gravity="start|center"
+                    android:paddingBottom="10dp"
+                    android:text="@string/print_detail"
+                    android:textColor="@color/adrift_in_dreams"
+                    android:textSize="14sp"
+                    app:drawableRightCompat="@drawable/ic_baseline_keyboard_arrow_right_24" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/endpage_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp">
+
+                <ImageView
+                    android:id="@+id/endpage_logo"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_endpage" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_toEndOf="@id/endpage_logo"
+                    android:background="@drawable/underline"
+                    android:gravity="start|center"
+                    android:paddingBottom="10dp"
+                    android:text="@string/txt_endpage"
+                    android:textColor="@color/adrift_in_dreams"
+                    android:textSize="14sp"
+                    app:drawableRightCompat="@drawable/ic_baseline_keyboard_arrow_right_24" />
+            </RelativeLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

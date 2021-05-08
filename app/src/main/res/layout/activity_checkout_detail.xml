@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:windowSoftInputMode="adjustPan"
+    tools:context=".ui.checkout.CheckoutDetailActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <ImageView
+                    android:id="@+id/img_card"
+                    android:layout_width="86dp"
+                    android:layout_height="86dp"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/icons8_user_64px_1"
+                    app:layout_constraintBottom_toBottomOf="@+id/cid_edt_layout"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/name_edt_layout" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/name_edt_layout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:hint="@string/name_th"
+                    android:theme="@style/EditTextThemeOverlay"
+                    app:boxBackgroundColor="@android:color/transparent"
+                    app:boxStrokeColor="@color/adrift_in_dreams"
+                    app:errorTextAppearance="@style/ErrorTextAppearance"
+                    app:hintTextAppearance="@style/HintTextAppearance"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/img_card"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/name_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:imeOptions="actionNext"
+                        android:inputType="textNoSuggestions"
+                        android:text="@string/empty"
+                        android:textColor="@color/adrift_in_dreams" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/cid_edt_layout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginEnd="10dp"
+                    android:hint="@string/cid_th"
+                    android:theme="@style/EditTextThemeOverlay"
+                    app:boxBackgroundColor="@android:color/transparent"
+                    app:boxStrokeColor="@color/adrift_in_dreams"
+                    app:errorTextAppearance="@style/ErrorTextAppearance"
+                    app:hintTextAppearance="@style/HintTextAppearance"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/img_card"
+                    app:layout_constraintTop_toBottomOf="@+id/name_edt_layout">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/cid_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:maxLength="13"
+                        android:text="@string/empty"
+                        android:textColor="@color/adrift_in_dreams" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/vid_edt_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:hint="@string/txt_vid"
+                android:theme="@style/EditTextThemeOverlay"
+                app:boxBackgroundColor="@android:color/transparent"
+                app:boxStrokeColor="@color/adrift_in_dreams"
+                app:errorTextAppearance="@style/ErrorTextAppearance"
+                app:hintTextAppearance="@style/HintTextAppearance"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/img_card"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/vid_edt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:focusable="false"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:text="@string/empty"
+                    android:textColor="@color/adrift_in_dreams" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/underline"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingTop="5dp"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".3"
+                    android:text="@string/txt_visitor_type"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/adrift_in_dreams"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/type_edt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".6"
+                    android:background="@android:color/transparent"
+                    android:enabled="false"
+                    android:focusable="false"
+                    android:imeOptions="actionNext"
+                    android:inputType="textNoSuggestions"
+                    android:text="@string/empty"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/adrift_in_dreams"
+                    android:textColorHighlight="@color/adrift_in_dreams"
+                    android:theme="@style/EditTextThemeOverlay" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/underline"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingTop="5dp"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".3"
+                    android:text="@string/txt_visitor_place"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/adrift_in_dreams"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/place_edt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".6"
+                    android:background="@android:color/transparent"
+                    android:enabled="false"
+                    android:focusable="false"
+                    android:imeOptions="actionNext"
+                    android:inputType="textNoSuggestions"
+                    android:text="@string/empty"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/adrift_in_dreams"
+                    android:textColorHighlight="@color/adrift_in_dreams"
+                    android:theme="@style/EditTextThemeOverlay" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/underline"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingTop="5dp"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".3"
+                    android:text="@string/txt_vehicle_type"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/adrift_in_dreams"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/vehicle_edt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".6"
+                    android:background="@android:color/transparent"
+                    android:enabled="false"
+                    android:focusable="false"
+                    android:imeOptions="actionNext"
+                    android:inputType="textNoSuggestions"
+                    android:text="@string/empty"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/adrift_in_dreams"
+                    android:theme="@style/EditTextThemeOverlay" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/underline"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingTop="5dp"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".3"
+                    android:text="@string/txt_license_plate"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/adrift_in_dreams"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/licenseplate_edt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".6"
+                    android:background="@android:color/transparent"
+                    android:enabled="false"
+                    android:focusable="false"
+                    android:imeOptions="actionDone"
+                    android:inputType="textNoSuggestions"
+                    android:text="@string/empty"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/adrift_in_dreams"
+                    android:textColorHighlight="@color/adrift_in_dreams"
+                    android:theme="@style/EditTextThemeOverlay" />
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/underline"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingTop="5dp"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".3"
+                    android:text="@string/time_in"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/adrift_in_dreams"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/timein_edt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".6"
+                    android:background="@android:color/transparent"
+                    android:enabled="false"
+                    android:focusable="false"
+                    android:imeOptions="actionDone"
+                    android:inputType="textNoSuggestions"
+                    android:text="@string/empty"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/adrift_in_dreams"
+                    android:textColorHighlight="@color/adrift_in_dreams"
+                    android:theme="@style/EditTextThemeOverlay" />
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/underline"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingTop="5dp"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".3"
+                    android:text="@string/txt_ternimal_in"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/adrift_in_dreams"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/terminal_edt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".6"
+                    android:background="@android:color/transparent"
+                    android:enabled="false"
+                    android:focusable="false"
+                    android:imeOptions="actionDone"
+                    android:inputType="textNoSuggestions"
+                    android:text="@string/empty"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/adrift_in_dreams"
+                    android:textColorHighlight="@color/adrift_in_dreams"
+                    android:theme="@style/EditTextThemeOverlay" />
+
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/img_cam"
+                android:layout_width="match_parent"
+                android:layout_height="144dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_photo"
+                app:layout_constraintBottom_toBottomOf="@+id/cid_edt_layout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/name_edt_layout" />
+
+        </LinearLayout>
+
+
+    </ScrollView>
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/printSwitch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_above="@id/btn_layout"
+        android:checked="false"
+        android:text="@string/print_slip" />
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <com.google.android.material.button.MaterialButton
+        android:id="@+id/accept_btn"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/out_accept"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:theme="@style/ButtonGreen" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/reject_btn"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/out_cancle"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:theme="@style/ButtonRed" />
+
+
+
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@id/container"
+    android:layout_width="match_parent"
+    android:layout_margin="@dimen/margin_small"
+    android:background="@drawable/bubble_item_red"
+    android:layout_height="wrap_content">
+
+
+    <RelativeLayout
+        android:id="@+id/front_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/margin_top"
+        android:paddingBottom="@dimen/margin_bottom"
+        >
+
+        <LinearLayout
+            android:id="@+id/title_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_left"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/name_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                tools:text="@string/name_th" />
+            <TextView
+                android:id="@+id/time_tv"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="2dp"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                tools:text="@string/txt_time_start" />
+
+
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</RelativeLayout>
