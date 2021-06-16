@@ -29,7 +29,7 @@ class ConnectManager {
         return OkHttpClient.Builder()
             .addInterceptor(Interceptor { chain ->
                 val newRequest = chain.request().newBuilder()
-                    .addHeader("X-Authorization", AppSettings.ACCESS_TOKEN)
+                    .addHeader("Authorization", AppSettings.ACCESS_TOKEN)
                     .build()
                 chain.proceed(newRequest)
             })

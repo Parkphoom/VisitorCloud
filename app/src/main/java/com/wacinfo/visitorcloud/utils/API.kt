@@ -21,7 +21,8 @@ interface API {
     @POST("{api}")
     fun postLogout(
         @Body data: RetrofitData.Logout.Post,
-        @Path(value = "api", encoded = true) api: String
+        @Path(value = "api", encoded = true) api: String,
+        @Header("Authorization") authHeader: String
     ): Observable<RetrofitData.Logout.Respones>
 
     @POST("{api}")

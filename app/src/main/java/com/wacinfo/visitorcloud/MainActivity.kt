@@ -346,7 +346,7 @@ class MainActivity : AppCompatActivity(), FastScroller.OnScrollStateChangeListen
         logoutbody.refresh_token = AppSettings.REFRESH_TOKEN
 
         retrofit.create(API::class.java)
-            .postLogout(logoutbody, apiname)
+            .postLogout(logoutbody, apiname, AppSettings.ACCESS_TOKEN)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<RetrofitData.Logout.Respones> {

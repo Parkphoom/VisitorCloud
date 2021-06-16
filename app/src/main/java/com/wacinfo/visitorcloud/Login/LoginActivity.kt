@@ -39,7 +39,7 @@ import java.util.*
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
-    private val TAG = "LoginLog"
+    private val TAG = "onNext"
     private val LOGIN_MODE_ADMIN = "admin"
     private val LOGIN_MODE_USER = "user"
     private var LoginMODE = ""
@@ -171,8 +171,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                         AppSettings.UID = uid!!
                         AppSettings.USER_NAME = binding.usernameEdt.text.toString()
                         AppSettings.USER_RULE = rule.toString().toUpperCase()
-                        Log.d(TAG, "onNext: ${AppSettings.ACCESS_TOKEN}")
-                        Log.d(TAG, "onNext: ${AppSettings.USER_ID}")
+//                        Log.d(TAG, "onNext: ${AppSettings.ACCESS_TOKEN}")
+//                        Log.d(TAG, "onNext: ${AppSettings.USER_ID}")
                         dialog.cancel()
                         syncSettings(userID.toString(), AppSettings.ACCESS_TOKEN)
 
@@ -252,7 +252,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                             AppSettings.vehicleType = t.message?.vehicleType!!
                         } else {
                             AppSettings.vehicleType = emptyList<String>()
-
                         }
                         if (t.message?.licensePlate?.isNotEmpty() == true) {
                             AppSettings.licensePlate = t.message?.licensePlate!!
@@ -324,6 +323,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             bitmap: Bitmap?,
             from: Picasso.LoadedFrom?
         ) {
+            Log.d(TAG, "onBitmapLoaded: ")
             if (bitmap != null) {
                 AppSettings.USER_LOGO = bitmap
             }
@@ -340,6 +340,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             e: java.lang.Exception?,
             errorDrawable: Drawable?
         ) {
+            Log.d(TAG, "onBitmapFailed: $e")
         }
 
         override fun onPrepareLoad(placeHolderDrawable: Drawable?) {

@@ -78,43 +78,6 @@ class LogViewModel : ViewModel() {
 
     }
 
-    fun loadLog(pageNum: Int): Observable<RetrofitData.VisitorDetail>? {
-        Log.d("ConnectManager", "loadLog: $currentDateandTime")
-        val url: String =
-            mContext!!.getString(R.string.URL) + mContext!!.getString(R.string.PORT)
-        val apigetinfo = mContext!!.getString(R.string.API_Report)
-        val userID = AppSettings.USER_ID
-
-        val client: OkHttpClient = OkHttpClient.Builder().addInterceptor(Interceptor { chain ->
-            val newRequest: Request = chain.request().newBuilder()
-                .addHeader("X-Authorization", "Bearer ${AppSettings.ACCESS_TOKEN}")
-                .build()
-            chain.proceed(newRequest)
-        }).build()
-        val retrofit: Retrofit = Retrofit.Builder()
-            .baseUrl(url)
-            .client(client)
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .build()
-
-        return retrofit.create<API>(API::class.java)
-            .getReport(
-                apigetinfo,
-                userID,
-                currentDateandTime,
-                true,
-                pageNum,
-                10,
-                -1,
-                "",
-                AppSettings.ACCESS_TOKEN
-            )
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-
-
-    }
 
 
 }

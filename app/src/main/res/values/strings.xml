@@ -2,10 +2,12 @@
     <string name="app_name">VisitorCloud</string>
 
     <!--    <string name="User_ID">5fe2c8a089d27d3818e4bcba</string>-->
-        <string name="URL">https://api.visitors.wacappcloud.com/</string>
-        <string name="PORT" />
+<!--        <string name="URL">https://api.visitors.wacappcloud.com/</string>-->
+<!--        <string name="PORT" />-->
 <!--    <string name="URL">http://10.0.0.205:</string>-->
 <!--    <string name="PORT">4004/</string>-->
+        <string name="URL">http://52.221.226.153:</string>
+    <string name="PORT">4000/</string>
     <string name="API_Property">property/</string>
     <string name="API_VisitorType">visitorType/</string>
     <string name="API_LicensePlate">licensePlate/</string>
