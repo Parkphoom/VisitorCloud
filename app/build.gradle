@@ -11,8 +11,8 @@ android {
         applicationId "com.wacinfo.visitorcloud"
         minSdkVersion 22
         targetSdkVersion 30
-        versionCode 13
-        versionName "2.1.2"
+        versionCode 11
+        versionName "2.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -91,7 +91,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.2'
-    implementation 'com.google.code.gson:gson:2.8.7'
+    implementation 'com.google.code.gson:gson:2.8.6'
     implementation('io.socket:socket.io-client:2.0.0') {
         // excluding org.json which is provided by Android
         exclude group: 'org.json', module: 'json'
