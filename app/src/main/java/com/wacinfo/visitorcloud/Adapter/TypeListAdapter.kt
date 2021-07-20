@@ -70,14 +70,15 @@ class TypeListAdapter(
                     header = mContext.getString(R.string.edit)
                     oldvalue = typename.toString()
                     onCloseClickListener = {
-                        Observable
-                            .just(ConnectManager().token(requireActivity(), AppSettings.REFRESH_TOKEN))
-                            .subscribeOn(Schedulers.newThread())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .doOnComplete {
-                                syncSettings()
-                            }
-                            .subscribe()
+                        syncSettings()
+//                        Observable
+//                            .just(ConnectManager().token(requireActivity(), AppSettings.REFRESH_TOKEN))
+//                            .subscribeOn(Schedulers.newThread())
+//                            .observeOn(AndroidSchedulers.mainThread())
+//                            .doOnComplete {
+//                                syncSettings()
+//                            }
+//                            .subscribe()
 
                     }
 
@@ -102,12 +103,8 @@ class TypeListAdapter(
             mContext.resources.getString(R.string.URL) + mContext.resources.getString(R.string.PORT)
         val apiname = mContext.resources.getString(R.string.API_Property)
         val userID = AppSettings.USER_ID
-        val client: OkHttpClient = OkHttpClient.Builder().addInterceptor(Interceptor { chain ->
-            val newRequest: Request = chain.request().newBuilder()
-                .addHeader("X-Authorization", "Bearer ${AppSettings.ACCESS_TOKEN}")
-                .build()
-            chain.proceed(newRequest)
-        }).build()
+        val client: OkHttpClient =
+            OkHttpClient.Builder().addInterceptor(TokenInterceptor(mContext as Activity)).build()
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl("$url$apiname")
             .client(client)
@@ -116,7 +113,7 @@ class TypeListAdapter(
             .build()
 
         retrofit.create(API::class.java)
-            .getProperty(userID,AppSettings.ACCESS_TOKEN)
+            .getProperty(userID)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<RetrofitData.Settings> {

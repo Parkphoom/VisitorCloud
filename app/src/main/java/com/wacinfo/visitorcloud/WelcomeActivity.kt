@@ -284,13 +284,8 @@ class WelcomeActivity : AppCompatActivity() {
         val url: String = resources.getString(R.string.URL) + resources.getString(R.string.PORT)
         val apiname = resources.getString(R.string.API_Property)
 
-        val client: OkHttpClient = OkHttpClient.Builder()
-            .addInterceptor(Interceptor { chain ->
-                val newRequest: Request = chain.request().newBuilder()
-                    .addHeader("X-Authorization", "Bearer $access_token")
-                    .build()
-                chain.proceed(newRequest)
-            }).build()
+        val client: OkHttpClient =
+            OkHttpClient.Builder().addInterceptor(TokenInterceptor(this)).build()
 
         val retrofit: Retrofit = Retrofit.Builder()
             .client(client)
@@ -300,7 +295,7 @@ class WelcomeActivity : AppCompatActivity() {
             .build()
 
         retrofit.create(API::class.java)
-            .getProperty(userID, access_token)
+            .getProperty(userID)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<RetrofitData.Settings> {
@@ -428,17 +423,18 @@ class WelcomeActivity : AppCompatActivity() {
 
         val url: String = resources.getString(R.string.URL) + resources.getString(R.string.PORT)
         val apiname = resources.getString(R.string.API_Logo)
-
+        val client: OkHttpClient =
+            OkHttpClient.Builder().addInterceptor(TokenInterceptor(this)).build()
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(url+apiname)
+            .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
 
         retrofit.create(API::class.java)
             .getLogo(
-                AppSettings.USER_ID,
-                AppSettings.ACCESS_TOKEN
+                AppSettings.USER_ID
             )
             .subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
@@ -499,15 +495,8 @@ class WelcomeActivity : AppCompatActivity() {
         val url: String = resources.getString(R.string.URL) + resources.getString(R.string.PORT)
         val apiname = resources.getString(R.string.API_Activate)
 
-        val client: OkHttpClient = OkHttpClient.Builder()
-            .addInterceptor(Interceptor { chain ->
-                val newRequest: Request = chain.request().newBuilder()
-                    .addHeader("X-Authorization", "Bearer ${AppSettings.ACCESS_TOKEN}")
-                    .build()
-                chain.proceed(newRequest)
-            }).build()
+
         val retrofit: Retrofit = Retrofit.Builder()
-            .client(client)
             .baseUrl(url)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

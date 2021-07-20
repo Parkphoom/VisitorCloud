@@ -146,12 +146,8 @@ class TitleViewModel : ViewModel() {
             val apigetinfo = mContext!!.getString(R.string.API_Getinfo)
             val userID = AppSettings.USER_ID
 
-            val client: OkHttpClient = OkHttpClient.Builder().addInterceptor(Interceptor { chain ->
-                val newRequest: Request = chain.request().newBuilder()
-                    .addHeader("X-Authorization", "Bearer ${AppSettings.ACCESS_TOKEN}")
-                    .build()
-                chain.proceed(newRequest)
-            }).build()
+            val client: OkHttpClient =
+                OkHttpClient.Builder().addInterceptor(TokenInterceptor(mContext!!)).build()
             val retrofit: Retrofit = Retrofit.Builder()
                 .baseUrl(url)
                 .client(client)
@@ -160,13 +156,13 @@ class TitleViewModel : ViewModel() {
                 .build()
 
             val observable1: Observable<RetrofitData.VisitorDetail> = retrofit.create(API::class.java)
-                .getLog(apigetinfo, userID, false,currentDateandTime, 1, 100, -1,AppSettings.ACCESS_TOKEN)
+                .getLog(apigetinfo, userID, false,currentDateandTime, 1, 100, -1)
 //            .subscribeOn(Schedulers.io())
 //            .observeOn(AndroidSchedulers.mainThread())
 
 
             val observable2: Observable<RetrofitData.VisitorDetail> = retrofit.create(API::class.java)
-                .getLog(apigetlog, userID,false, currentDateandTime, 1, 100,-1, AppSettings.ACCESS_TOKEN)
+                .getLog(apigetlog, userID,false, currentDateandTime, 1, 100,-1)
 //            .subscribeOn(Schedulers.io())
 //            .observeOn(AndroidSchedulers.mainThread())
 
@@ -179,8 +175,7 @@ class TitleViewModel : ViewModel() {
                     currentDateandTime,
                     1,
                     100,
-                    -1,
-                    AppSettings.ACCESS_TOKEN
+                    -1
                 )
 //            .subscribeOn(Schedulers.io())
 //            .observeOn(AndroidSchedulers.mainThread())

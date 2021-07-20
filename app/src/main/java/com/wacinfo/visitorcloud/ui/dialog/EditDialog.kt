@@ -20,6 +20,7 @@ import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import okhttp3.OkHttpClient
 import org.json.JSONObject
 import retrofit2.HttpException
 import retrofit2.Retrofit
@@ -194,15 +195,17 @@ class EditDialog : BottomSheetDialogFragment(), View.OnClickListener {
             requireContext().resources.getString(R.string.URL) + requireContext().resources.getString(
                 R.string.PORT
             )
-
+        val client: OkHttpClient =
+            OkHttpClient.Builder().addInterceptor(TokenInterceptor(requireActivity())).build()
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(url)
+            .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
 
         retrofit.create(API::class.java)
-            .editProperty(data, apiname, AppSettings.ACCESS_TOKEN)
+            .editProperty(data, apiname)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<RetrofitData.Property> {
@@ -245,15 +248,17 @@ class EditDialog : BottomSheetDialogFragment(), View.OnClickListener {
                 R.string.PORT
             )
         val apiname = requireContext().resources.getString(R.string.API_VisitorType)
-
+        val client: OkHttpClient =
+            OkHttpClient.Builder().addInterceptor(TokenInterceptor(requireActivity())).build()
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(url)
+            .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
 
         retrofit.create(API::class.java)
-            .deleteVisitorType(data, apiname,AppSettings.ACCESS_TOKEN)
+            .deleteVisitorType(data, apiname)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<RetrofitData.Property> {
@@ -296,15 +301,17 @@ class EditDialog : BottomSheetDialogFragment(), View.OnClickListener {
                 R.string.PORT
             )
         val apiname = requireContext().resources.getString(R.string.API_VisitPlace)
-
+        val client: OkHttpClient =
+            OkHttpClient.Builder().addInterceptor(TokenInterceptor(requireActivity())).build()
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(url)
+            .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
 
         retrofit.create(API::class.java)
-            .deleteVisitPlace(data, apiname,AppSettings.ACCESS_TOKEN)
+            .deleteVisitPlace(data, apiname)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<RetrofitData.Property> {
@@ -347,15 +354,17 @@ class EditDialog : BottomSheetDialogFragment(), View.OnClickListener {
                 R.string.PORT
             )
         val apiname = requireContext().resources.getString(R.string.API_VehicleType)
-
+        val client: OkHttpClient =
+            OkHttpClient.Builder().addInterceptor(TokenInterceptor(requireActivity())).build()
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(url)
+            .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
 
         retrofit.create(API::class.java)
-            .deleteVehicleType(data, apiname,AppSettings.ACCESS_TOKEN)
+            .deleteVehicleType(data, apiname)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<RetrofitData.Property> {
@@ -398,15 +407,17 @@ class EditDialog : BottomSheetDialogFragment(), View.OnClickListener {
                 R.string.PORT
             )
         val apiname = requireContext().resources.getString(R.string.API_LicensePlate)
-
+        val client: OkHttpClient =
+            OkHttpClient.Builder().addInterceptor(TokenInterceptor(requireActivity())).build()
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(url)
+            .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
 
         retrofit.create(API::class.java)
-            .deleteLicensePlate(data, apiname,AppSettings.ACCESS_TOKEN)
+            .deleteLicensePlate(data, apiname)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<RetrofitData.Property> {

@@ -234,12 +234,7 @@ class LogFragment : AbstractFragment(), FlexibleAdapter.EndlessScrollListener,
 
 
                 val client: OkHttpClient =
-                    OkHttpClient.Builder().addInterceptor(Interceptor { chain ->
-                        val newRequest: Request = chain.request().newBuilder()
-                            .addHeader("X-Authorization", "Bearer ${AppSettings.ACCESS_TOKEN}")
-                            .build()
-                        chain.proceed(newRequest)
-                    }).build()
+                    OkHttpClient.Builder().addInterceptor(TokenInterceptor(requireActivity())).build()
                 val retrofit: Retrofit = Retrofit.Builder()
                     .baseUrl(url)
                     .client(client)
@@ -256,8 +251,7 @@ class LogFragment : AbstractFragment(), FlexibleAdapter.EndlessScrollListener,
                             currentDateandTime,
                             1,
                             10,
-                            -1,
-                            AppSettings.ACCESS_TOKEN
+                            -1
                         )
 
                 val observable2: Observable<RetrofitData.VisitorDetail> =
@@ -269,8 +263,7 @@ class LogFragment : AbstractFragment(), FlexibleAdapter.EndlessScrollListener,
                             currentDateandTime,
                             1,
                             10,
-                            -1,
-                            AppSettings.ACCESS_TOKEN
+                            -1
                         )
 
                 var enterList: MutableList<RetrofitData.VisitorDetail> = ArrayList()
@@ -500,12 +493,8 @@ class LogFragment : AbstractFragment(), FlexibleAdapter.EndlessScrollListener,
         val apigetinfo = getString(R.string.API_Getinfo)
         val userID = AppSettings.USER_ID
 
-        val client: OkHttpClient = OkHttpClient.Builder().addInterceptor(Interceptor { chain ->
-            val newRequest: Request = chain.request().newBuilder()
-                .addHeader("X-Authorization", "Bearer ${AppSettings.ACCESS_TOKEN}")
-                .build()
-            chain.proceed(newRequest)
-        }).build()
+        val client: OkHttpClient =
+            OkHttpClient.Builder().addInterceptor(TokenInterceptor(requireActivity())).build()
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(url)
             .client(client)
@@ -521,8 +510,7 @@ class LogFragment : AbstractFragment(), FlexibleAdapter.EndlessScrollListener,
                 currentDateandTime,
                 viewModel.Pagging.value!!,
                 10,
-                -1,
-                AppSettings.ACCESS_TOKEN
+                -1
             )
 
         val observable2: Observable<RetrofitData.VisitorDetail> = retrofit.create(API::class.java)
@@ -533,8 +521,7 @@ class LogFragment : AbstractFragment(), FlexibleAdapter.EndlessScrollListener,
                 currentDateandTime,
                 viewModel.Pagging.value!!,
                 10,
-                -1,
-                AppSettings.ACCESS_TOKEN
+                -1
             )
 
 

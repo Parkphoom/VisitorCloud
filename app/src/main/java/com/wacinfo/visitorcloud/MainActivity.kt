@@ -59,6 +59,7 @@ import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import okhttp3.OkHttpClient
 import org.json.JSONObject
 import retrofit2.HttpException
 import retrofit2.Retrofit
@@ -335,9 +336,11 @@ class MainActivity : AppCompatActivity(), FastScroller.OnScrollStateChangeListen
 
         val url: String = resources.getString(R.string.URL) + resources.getString(R.string.PORT)
         val apiname = resources.getString(R.string.API_Logout)
-
+        val client: OkHttpClient =
+            OkHttpClient.Builder().addInterceptor(TokenInterceptor(this)).build()
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(url)
+            .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
@@ -346,7 +349,7 @@ class MainActivity : AppCompatActivity(), FastScroller.OnScrollStateChangeListen
         logoutbody.refresh_token = AppSettings.REFRESH_TOKEN
 
         retrofit.create(API::class.java)
-            .postLogout(logoutbody, apiname, AppSettings.ACCESS_TOKEN)
+            .postLogout(logoutbody, apiname)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<RetrofitData.Logout.Respones> {

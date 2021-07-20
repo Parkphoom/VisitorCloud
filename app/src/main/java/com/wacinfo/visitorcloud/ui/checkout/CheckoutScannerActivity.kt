@@ -26,6 +26,7 @@ import io.reactivex.schedulers.Schedulers
 import me.dm7.barcodescanner.zbar.BarcodeFormat
 import me.dm7.barcodescanner.zbar.Result
 import me.dm7.barcodescanner.zbar.ZBarScannerView
+import okhttp3.OkHttpClient
 import org.json.JSONObject
 import retrofit2.HttpException
 import retrofit2.Retrofit
@@ -236,15 +237,17 @@ class CheckoutScannerActivity : AppCompatActivity(), ZBarScannerView.ResultHandl
         val url: String = resources.getString(R.string.URL) + resources.getString(R.string.PORT)
         val apiname = resources.getString(R.string.API_CheckNum)
         val userID = AppSettings.USER_ID
-
+        val client: OkHttpClient =
+            OkHttpClient.Builder().addInterceptor(TokenInterceptor(this)).build()
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(url + apiname + userID + "/")
+            .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
 
         retrofit.create(API::class.java)
-            .getChecknum(vid, AppSettings.ACCESS_TOKEN)
+            .getChecknum(vid)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<RetrofitData.Checknum> {

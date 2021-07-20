@@ -1,6 +1,7 @@
 package com.wacinfo.visitorcloud.ui.checkout
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
@@ -207,15 +208,17 @@ class CheckoutDetailActivity : AppCompatActivity(), View.OnClickListener {
     private fun checkOut(checkoutData: RetrofitData.VisitorDetail) {
         val url: String = resources.getString(R.string.URL) + resources.getString(R.string.PORT)
         val apiname = resources.getString(R.string.API_VisitorUp)
-
+        val client: OkHttpClient =
+            OkHttpClient.Builder().addInterceptor(TokenInterceptor(this)).build()
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(url)
+            .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
 
         retrofit.create(API::class.java)
-            .postCheckOut(checkoutData, apiname, AppSettings.ACCESS_TOKEN)
+            .postCheckOut(checkoutData, apiname)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<RetrofitData.VisitorDetail> {
@@ -301,12 +304,8 @@ class CheckoutDetailActivity : AppCompatActivity(), View.OnClickListener {
         val apigetinfo = getString(R.string.API_GetCost)
         val userID = AppSettings.USER_ID
 
-        val client: OkHttpClient = OkHttpClient.Builder().addInterceptor(Interceptor { chain ->
-            val newRequest: Request = chain.request().newBuilder()
-                .addHeader("X-Authorization", "Bearer ${AppSettings.ACCESS_TOKEN}")
-                .build()
-            chain.proceed(newRequest)
-        }).build()
+        val client: OkHttpClient =
+            OkHttpClient.Builder().addInterceptor(TokenInterceptor(this)).build()
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(url)
             .client(client)
@@ -316,7 +315,7 @@ class CheckoutDetailActivity : AppCompatActivity(), View.OnClickListener {
 
         val observable: Observable<RetrofitData.Payment.GetCost> =
             retrofit.create(API::class.java)
-                .getCost(apigetinfo, userID, 1, 2000, AppSettings.ACCESS_TOKEN)
+                .getCost(apigetinfo, userID, 1, 2000)
 //            .subscribeOn(Schedulers.io())
 //            .observeOn(AndroidSchedulers.mainThread())
 
@@ -682,15 +681,17 @@ class CheckoutDetailActivity : AppCompatActivity(), View.OnClickListener {
 
         val url: String = resources.getString(R.string.URL) + resources.getString(R.string.PORT)
         val apiname = resources.getString(R.string.API_PostCost)
-
+        val client: OkHttpClient =
+            OkHttpClient.Builder().addInterceptor(TokenInterceptor(this)).build()
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(url)
+            .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
 
         retrofit.create(API::class.java)
-            .postCost(costData, apiname, AppSettings.ACCESS_TOKEN)
+            .postCost(costData, apiname)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<RetrofitData.Payment.PostCost.Respones> {

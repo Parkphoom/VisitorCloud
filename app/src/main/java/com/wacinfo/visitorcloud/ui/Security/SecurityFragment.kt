@@ -217,12 +217,8 @@ class SecurityFragment : AbstractFragment() {
 
         val userID = AppSettings.USER_ID
 
-        val client: OkHttpClient = OkHttpClient.Builder().addInterceptor(Interceptor { chain ->
-            val newRequest: Request = chain.request().newBuilder()
-                .addHeader("X-Authorization", "Bearer ${AppSettings.ACCESS_TOKEN}")
-                .build()
-            chain.proceed(newRequest)
-        }).build()
+        val client: OkHttpClient =
+            OkHttpClient.Builder().addInterceptor(TokenInterceptor(requireActivity())).build()
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(url + apiname)
             .client(client)
@@ -233,14 +229,12 @@ class SecurityFragment : AbstractFragment() {
         val blacklistobserv:
                 Observable<RetrofitData.Blacklist.Get> = retrofit.create(API::class.java)
             .getBlackList(
-                userID,
-                AppSettings.ACCESS_TOKEN
+                userID
             )
         val whitelistobserv:
                 Observable<RetrofitData.Whitelist.Get> = retrofit.create(API::class.java)
             .getWhiteList(
-                userID,
-                AppSettings.ACCESS_TOKEN
+                userID
             )
 
         if(binding.listModeSwitch.checkedTogglePosition == 0){

@@ -16,6 +16,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.internal.connection.ConnectInterceptor.intercept
 import org.json.JSONObject
+import retrofit2.Call
 import retrofit2.HttpException
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -106,12 +107,8 @@ class ConnectManager {
         val url: String = activity.getString(R.string.URL) + activity.getString(R.string.PORT)
         val apiname = activity.getString(R.string.API_Property)
 
-        val client: OkHttpClient = OkHttpClient.Builder().addInterceptor(Interceptor { chain ->
-            val newRequest: Request = chain.request().newBuilder()
-                .header("X-Authorization", "Bearer $access_token")
-                .build()
-            chain.proceed(newRequest)
-        }).build()
+        val client: OkHttpClient =
+            OkHttpClient.Builder().addInterceptor(TokenInterceptor(activity)).build()
 
         val retrofit: Retrofit = Retrofit.Builder()
             .client(client)
@@ -122,7 +119,7 @@ class ConnectManager {
             .build()
 
         retrofit.create(API::class.java)
-            .getProperty(userID, access_token)
+            .getProperty(userID)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<RetrofitData.Settings> {
@@ -207,5 +204,15 @@ class ConnectManager {
                 }
             })
     }
+    fun refreshToken(context: Activity): Call<RetrofitData.Login> {
+        val url: String = context.getString(R.string.URL) + context.getString(R.string.PORT)
+        val apiToken = context.getString(R.string.API_Token)
+        val retrofit: Retrofit = Retrofit.Builder()
+            .baseUrl(url)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build()
 
+        return retrofit.create(API::class.java).refreshToken(AppSettings.REFRESH_TOKEN, apiToken)
+    }
 }

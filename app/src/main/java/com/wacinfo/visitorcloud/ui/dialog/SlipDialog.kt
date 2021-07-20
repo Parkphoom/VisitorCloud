@@ -1,6 +1,7 @@
 package com.wacinfo.visitorcloud.ui.dialog
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
@@ -36,6 +37,7 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
+import okhttp3.OkHttpClient
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import org.json.JSONObject
@@ -168,9 +170,11 @@ class SlipDialog : DialogFragment(), View.OnClickListener {
     ) {
         val url: String = resources.getString(R.string.URL) + resources.getString(R.string.PORT)
         val apiname = resources.getString(R.string.API_VisitorUp)
-
+        val client: OkHttpClient =
+            OkHttpClient.Builder().addInterceptor(TokenInterceptor(requireActivity())).build()
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(url)
+            .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
@@ -192,7 +196,7 @@ class SlipDialog : DialogFragment(), View.OnClickListener {
                 createBody(logData.vehicleType.toString()),
                 createBody(logData.recordStatus.toString()),
                 createBody(logData.terminalIn.toString()),
-                createBody(logData.contactPlace.toString()), AppSettings.ACCESS_TOKEN
+                createBody(logData.contactPlace.toString())
             )
             ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
@@ -279,9 +283,11 @@ class SlipDialog : DialogFragment(), View.OnClickListener {
     ) {
         val url: String = resources.getString(R.string.URL) + resources.getString(R.string.PORT)
         val apiname = resources.getString(R.string.API_Appointment)
-
+        val client: OkHttpClient =
+            OkHttpClient.Builder().addInterceptor(TokenInterceptor(requireActivity())).build()
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(url)
+            .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
@@ -289,8 +295,7 @@ class SlipDialog : DialogFragment(), View.OnClickListener {
         retrofit.create(API::class.java)
             .updateMeeting(
                 apiname,
-                value,
-                AppSettings.ACCESS_TOKEN
+                value
             )
             .subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())

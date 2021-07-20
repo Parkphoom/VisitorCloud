@@ -1029,12 +1029,8 @@ class DetailFragment : Fragment(), View.OnClickListener {
         val apigetblacklist = getString(R.string.API_Blacklist)
         val userID = AppSettings.USER_ID
 
-        val client: OkHttpClient = OkHttpClient.Builder().addInterceptor(Interceptor { chain ->
-            val newRequest: Request = chain.request().newBuilder()
-                .addHeader("X-Authorization", "Bearer ${AppSettings.ACCESS_TOKEN}")
-                .build()
-            chain.proceed(newRequest)
-        }).build()
+        val client: OkHttpClient =
+            OkHttpClient.Builder().addInterceptor(TokenInterceptor(requireActivity())).build()
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(url + apigetblacklist)
             .client(client)
@@ -1044,8 +1040,7 @@ class DetailFragment : Fragment(), View.OnClickListener {
 
         val observable: Observable<RetrofitData.Blacklist.Get> = retrofit.create(API::class.java)
             .getBlackList(
-                userID,
-                AppSettings.ACCESS_TOKEN
+                userID
             )
         observable
             .subscribeOn(Schedulers.io())
@@ -1153,12 +1148,8 @@ class DetailFragment : Fragment(), View.OnClickListener {
         val userID = AppSettings.USER_ID
         val uid = AppSettings.UID
 
-        val client: OkHttpClient = OkHttpClient.Builder().addInterceptor(Interceptor { chain ->
-            val newRequest: Request = chain.request().newBuilder()
-                .addHeader("X-Authorization", "Bearer ${AppSettings.ACCESS_TOKEN}")
-                .build()
-            chain.proceed(newRequest)
-        }).build()
+        val client: OkHttpClient =
+            OkHttpClient.Builder().addInterceptor(TokenInterceptor(requireActivity())).build()
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(url + apigetmeeting)
             .client(client)
@@ -1169,8 +1160,7 @@ class DetailFragment : Fragment(), View.OnClickListener {
         val observable: Observable<RetrofitData.Appointment.Get> = retrofit.create(API::class.java)
             .getAppointment(
                 userID,
-                uid,
-                AppSettings.ACCESS_TOKEN
+                uid
             )
         observable
             .subscribeOn(Schedulers.io())
@@ -1263,15 +1253,17 @@ class DetailFragment : Fragment(), View.OnClickListener {
         val url: String = resources.getString(R.string.URL) + resources.getString(R.string.PORT)
         val apiname = resources.getString(R.string.API_CheckNum)
         val userID = AppSettings.USER_ID
-
+        val client: OkHttpClient =
+            OkHttpClient.Builder().addInterceptor(TokenInterceptor(requireActivity())).build()
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(url + apiname + userID + "/")
+            .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
 
         return retrofit.create(API::class.java)
-            .getChecknum(vid, AppSettings.ACCESS_TOKEN)
+            .getChecknum(vid)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
@@ -1307,15 +1299,17 @@ class DetailFragment : Fragment(), View.OnClickListener {
 
             val body = RetrofitData.BookingVisitorID.Body()
             body.userId = AppSettings.USER_ID
-
+            val client: OkHttpClient =
+                OkHttpClient.Builder().addInterceptor(TokenInterceptor(requireActivity())).build()
             val retrofit: Retrofit = Retrofit.Builder()
                 .baseUrl(url)
+                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
 
             retrofit.create(API::class.java)
-                .postBooking(body, apiBooking, AppSettings.ACCESS_TOKEN)
+                .postBooking(body, apiBooking)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : Observer<RetrofitData.BookingVisitorID> {

@@ -1,6 +1,7 @@
 package com.wacinfo.visitorcloud.ui.homescreen
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -108,16 +109,18 @@ class Title : AbstractFragment(), View.OnClickListener {
 
         loadLog()
 
-        Observable
-            .just(ConnectManager().token(requireActivity(), AppSettings.REFRESH_TOKEN))
-            .delay(250, TimeUnit.MILLISECONDS)
-            .subscribeOn(Schedulers.newThread())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnComplete {
-                syncSettings()
-                dialog.cancel()
-            }
-            .subscribe()
+        syncSettings()
+        dialog.cancel()
+//        Observable
+//            .just(ConnectManager().token(requireActivity(), AppSettings.REFRESH_TOKEN))
+//            .delay(250, TimeUnit.MILLISECONDS)
+//            .subscribeOn(Schedulers.newThread())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .doOnComplete {
+//                syncSettings()
+//                dialog.cancel()
+//            }
+//            .subscribe()
 
     }
 
@@ -144,12 +147,8 @@ class Title : AbstractFragment(), View.OnClickListener {
         val url: String = resources.getString(R.string.URL) + resources.getString(R.string.PORT)
         val apiname = resources.getString(R.string.API_Property)
         val userID = AppSettings.USER_ID
-        val client: OkHttpClient = OkHttpClient.Builder().addInterceptor(Interceptor { chain ->
-            val newRequest: Request = chain.request().newBuilder()
-                .addHeader("X-Authorization", "Bearer ${AppSettings.ACCESS_TOKEN}")
-                .build()
-            chain.proceed(newRequest)
-        }).build()
+        val client: OkHttpClient =
+            OkHttpClient.Builder().addInterceptor(TokenInterceptor(requireActivity())).build()
 
         val retrofit: Retrofit = Retrofit.Builder()
             .client(client)
@@ -159,7 +158,7 @@ class Title : AbstractFragment(), View.OnClickListener {
             .build()
 
         retrofit.create(API::class.java)
-            .getProperty(userID, AppSettings.ACCESS_TOKEN)
+            .getProperty(userID)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<RetrofitData.Settings> {
@@ -225,7 +224,7 @@ class Title : AbstractFragment(), View.OnClickListener {
 
 
                     } catch (e: NullPointerException) {
-                        Log.d(TAG, "onNext: $e")
+                        Log.d(TAG, "syncSettings onNext: $e")
                     }
 
                 }
@@ -236,9 +235,9 @@ class Title : AbstractFragment(), View.OnClickListener {
                     if (e is HttpException) {
                         try {
                             val jObjError = JSONObject(e.response()!!.errorBody()?.string())
-                            Log.d(TAG, jObjError.getString("message"))
+                            Log.d(TAG, "syncSettings "+jObjError.getString("message"))
                         } catch (e: Exception) {
-                            e.message?.let { Log.d(TAG, it) }
+                            e.message?.let { Log.d(TAG, "syncSettings $it") }
                         }
                     }
 
@@ -257,12 +256,8 @@ class Title : AbstractFragment(), View.OnClickListener {
         val apigetinfo = getString(R.string.API_Getinfo)
         val userID = AppSettings.USER_ID
 
-        val client: OkHttpClient = OkHttpClient.Builder().addInterceptor(Interceptor { chain ->
-            val newRequest: Request = chain.request().newBuilder()
-                .addHeader("X-Authorization", "Bearer ${AppSettings.ACCESS_TOKEN}")
-                .build()
-            chain.proceed(newRequest)
-        }).build()
+        val client: OkHttpClient =
+            OkHttpClient.Builder().addInterceptor(TokenInterceptor(requireActivity())).build()
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(url)
             .client(client)
@@ -279,8 +274,7 @@ class Title : AbstractFragment(), View.OnClickListener {
                     currentDateandTime,
                     1,
                     100,
-                    -1,
-                    AppSettings.ACCESS_TOKEN
+                    -1
                 )
         val observable2: Observable<RetrofitData.VisitorDetail> =
             retrofit.create(API::class.java)
@@ -291,8 +285,7 @@ class Title : AbstractFragment(), View.OnClickListener {
                     currentDateandTime,
                     1,
                     100,
-                    -1,
-                    AppSettings.ACCESS_TOKEN
+                    -1
                 )
 
         val observable3: Observable<RetrofitData.VisitorDetail> =
@@ -304,8 +297,7 @@ class Title : AbstractFragment(), View.OnClickListener {
                     currentDateandTime,
                     1,
                     100,
-                    -1,
-                    AppSettings.ACCESS_TOKEN
+                    -1
                 )
 
         val enterList: MutableList<Int> = ArrayList(AppSettings.visitorType.size)
@@ -400,12 +392,12 @@ class Title : AbstractFragment(), View.OnClickListener {
 
                 override fun onError(e: Throwable) {
                     var strError = ""
-                    Log.d(TAG, e.toString())
+                    Log.d(TAG, "loadLog onError$e")
                     strError = e.toString()
                     if (e is HttpException) {
                         try {
                             val jObjError = JSONObject(e.response()!!.errorBody()?.string())
-                            Log.d(TAG, jObjError.getString("message"))
+                            Log.d(TAG, "loadLog "+jObjError.getString("message"))
                             strError = jObjError.getString("message")
 
                             if (strError == "Invalid input") {
@@ -416,7 +408,7 @@ class Title : AbstractFragment(), View.OnClickListener {
                             }
                         } catch (e: Exception) {
                             e.message?.let {
-                                Log.d(TAG, it)
+                                Log.d(TAG, "loadLog $it")
                                 strError = it
                             }
 

@@ -226,13 +226,16 @@ class TypelistFragment : Fragment() {
         dialog!!.show()
 
         val url: String = resources.getString(R.string.URL) + resources.getString(R.string.PORT)
+        val client: OkHttpClient =
+            OkHttpClient.Builder().addInterceptor(TokenInterceptor(requireActivity())).build()
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(url)
+            .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
         retrofit.create(API::class.java)
-            .postVisitorType(typeData, apiname, AppSettings.ACCESS_TOKEN)
+            .postVisitorType(typeData, apiname)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<RetrofitData.Property> {
@@ -281,13 +284,16 @@ class TypelistFragment : Fragment() {
         dialog!!.show()
 
         val url: String = resources.getString(R.string.URL) + resources.getString(R.string.PORT)
+        val client: OkHttpClient =
+            OkHttpClient.Builder().addInterceptor(TokenInterceptor(requireActivity())).build()
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(url)
+            .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
         retrofit.create(API::class.java)
-            .postVisitPlace(typeData, apiname, AppSettings.ACCESS_TOKEN)
+            .postVisitPlace(typeData, apiname)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<RetrofitData.Property> {
@@ -335,13 +341,16 @@ class TypelistFragment : Fragment() {
         val dialog= PublicFunction().retrofitDialog(requireContext())
         dialog!!.show()
         val url: String = resources.getString(R.string.URL) + resources.getString(R.string.PORT)
+        val client: OkHttpClient =
+            OkHttpClient.Builder().addInterceptor(TokenInterceptor(requireActivity())).build()
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(url)
+            .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
         retrofit.create(API::class.java)
-            .postVehicleType(typeData, apiname, AppSettings.ACCESS_TOKEN)
+            .postVehicleType(typeData, apiname)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<RetrofitData.Property> {
@@ -390,13 +399,16 @@ class TypelistFragment : Fragment() {
         dialog!!.show()
 
         val url: String = resources.getString(R.string.URL) + resources.getString(R.string.PORT)
+        val client: OkHttpClient =
+            OkHttpClient.Builder().addInterceptor(TokenInterceptor(requireActivity())).build()
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(url)
+            .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
         retrofit.create(API::class.java)
-            .postLicensePlate(typeData, apiname, AppSettings.ACCESS_TOKEN)
+            .postLicensePlate(typeData, apiname)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<RetrofitData.Property> {
@@ -446,12 +458,8 @@ class TypelistFragment : Fragment() {
         val url: String = resources.getString(R.string.URL) + resources.getString(R.string.PORT)
         val apiname = resources.getString(R.string.API_Property)
         val userID = AppSettings.USER_ID
-        val client: OkHttpClient = OkHttpClient.Builder().addInterceptor(Interceptor { chain ->
-            val newRequest: Request = chain.request().newBuilder()
-                .addHeader("X-Authorization", "Bearer ${AppSettings.ACCESS_TOKEN}")
-                .build()
-            chain.proceed(newRequest)
-        }).build()
+        val client: OkHttpClient =
+            OkHttpClient.Builder().addInterceptor(TokenInterceptor(requireActivity())).build()
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl("$url$apiname")
             .client(client)
@@ -460,7 +468,7 @@ class TypelistFragment : Fragment() {
             .build()
 
         retrofit.create(API::class.java)
-            .getProperty(userID, AppSettings.ACCESS_TOKEN)
+            .getProperty(userID)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<RetrofitData.Settings> {

@@ -163,12 +163,8 @@ class AboutViewModel(application: Application) : AndroidViewModel(application) {
         val apigetlog = context!!.getString(R.string.API_Getlog)
         val apigetinfo = context!!.getString(R.string.API_Getinfo)
         val userID = AppSettings.USER_ID
-        val client: OkHttpClient = OkHttpClient.Builder().addInterceptor(Interceptor { chain ->
-            val newRequest: Request = chain.request().newBuilder()
-                .addHeader("X-Authorization", "Bearer ${AppSettings.ACCESS_TOKEN}")
-                .build()
-            chain.proceed(newRequest)
-        }).build()
+        val client: OkHttpClient =
+            OkHttpClient.Builder().addInterceptor(TokenInterceptor(context!!)).build()
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(url)
             .client(client)
@@ -186,8 +182,7 @@ class AboutViewModel(application: Application) : AndroidViewModel(application) {
                     currentDateandTime,
                     1,
                     100,
-                    -1,
-                    AppSettings.ACCESS_TOKEN
+                    -1
                 )
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -199,8 +194,7 @@ class AboutViewModel(application: Application) : AndroidViewModel(application) {
                     currentDateandTime,
                     1,
                     100,
-                    -1,
-                    AppSettings.ACCESS_TOKEN
+                    -1
                 )
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -215,8 +209,7 @@ class AboutViewModel(application: Application) : AndroidViewModel(application) {
                     currentDateandTime,
                     1,
                     100,
-                    -1,
-                    AppSettings.ACCESS_TOKEN
+                    -1
                 )
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -230,8 +223,7 @@ class AboutViewModel(application: Application) : AndroidViewModel(application) {
                     currentDateandTime,
                     1,
                     100,
-                    -1,
-                    AppSettings.ACCESS_TOKEN
+                    -1
                 )
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
