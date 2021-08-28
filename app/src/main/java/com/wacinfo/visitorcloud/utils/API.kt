@@ -260,4 +260,24 @@ interface API {
         @Header("Authorization") authHeader: String,
         @Path(value = "api", encoded = true) api: String
     ): Call<RetrofitData.Login>
+
+    @POST("{api}")
+    fun postEStamp
+                (
+        @Body data: RetrofitData.EStamp.Body,
+        @Path(value = "api", encoded = true) api: String
+    )
+            : Observable<RetrofitData.EStamp.Respones>
+
+    @GET("{userId}")
+    fun getEStamp(
+        @Path(value = "userId", encoded = true) userId: String,
+        @Query(value = "houseNumber", encoded = true) houseNumber: String,
+        @Query(value = "visitorNumber", encoded = true) visitorNumber: String,
+        @Query(value = "useForm", encoded = true) useForm: String,
+        @Query(value = "_page", encoded = true) _page: String,
+//        @Query(value = "_limit", encoded = true) _limit: String,
+        @Query(value = "_sort", encoded = true) _sort: String
+
+    ): Observable<RetrofitData.EStamp.GetRespones>
 }

@@ -144,6 +144,45 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight=".3"
+                    android:text="@string/e_stamp_status"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/adrift_in_dreams"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/estamp_edt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".6"
+                    android:background="@android:color/transparent"
+                    android:enabled="false"
+                    android:focusable="false"
+                    android:imeOptions="actionNext"
+                    android:inputType="textNoSuggestions"
+                    android:text="@string/empty"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/adrift_in_dreams"
+                    android:textColorHighlight="@color/adrift_in_dreams"
+                    android:theme="@style/EditTextThemeOverlay" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/underline"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingTop="5dp"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".3"
                     android:text="@string/txt_visitor_type"
                     android:textAlignment="textStart"
                     android:textColor="@color/adrift_in_dreams"

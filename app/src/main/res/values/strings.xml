@@ -35,6 +35,7 @@
     <string name="API_PostCost">costUp/</string>
     <string name="API_Appointment">meeting/</string>
     <string name="API_Logo">logo/</string>
+    <string name="API_E_Stamp">estamp</string>
 
     //Rules
     <string name="RULE_Master_admin">master admin</string>
@@ -202,6 +203,9 @@
     <string name="txt_signature">ช่องประทับตรา/ลายเซ็น</string>
     <string name="txt_endpage">ข้อความท้ายกระดาษ</string>
     <string name="print_detail">รายละเอียดการพิมพ์</string>
+    <string name="e_stamp">E-Stamp</string>
+    <string name="home_id_hint">กรอกเลขที่บ้านที่นี่</string>
+    <string name="e_stamp_status">สถานะ E-Stamp</string>
 
     <string-array name="items_per_page">
         <item>10</item>

@@ -869,5 +869,85 @@ class RetrofitData {
         }
     }
 
+    class EStamp {
+         class GetRespones {
+            @SerializedName("status")
+            var status: String? = null
 
+            @SerializedName("message")
+            var message: Message? = null
+
+             class Message {
+                @SerializedName("total")
+                var total: String? = null
+
+                @SerializedName("result")
+                var result: ArrayList<Result>? = null
+
+                 class Result {
+                    @SerializedName("estampId")
+                    var estampId: String? = null
+
+                    @SerializedName("uId")
+                    var uId: String? = null
+
+                    @SerializedName("useForm")
+                    var useForm: String? = null
+
+                    @SerializedName("houseNumber")
+                    var houseNumber: String? = null
+
+                    @SerializedName("visitorNumber")
+                    var visitorNumber: String? = null
+
+                    @SerializedName("estampStatus")
+                    var estampStatus: String? = null
+
+                    @SerializedName("timeEstamp")
+                    var timeEstamp: String? = null
+
+                    fun getuId(): String? {
+                        return uId
+                    }
+
+                    fun setuId(uId: String?) {
+                        this.uId = uId
+                    }
+                }
+            }
+        }
+
+        inner class Respones {
+            @SerializedName("status")
+            var status: String? = null
+
+            @SerializedName("message")
+            var message: String? = null
+        }
+
+         class Body(
+            @field:SerializedName("userId") var userId: String,
+            @field:SerializedName(
+                "uId"
+            ) var uId: String,
+            @field:SerializedName("useForm") var useForm: String,
+            @field:SerializedName(
+                "houseNumber"
+            ) var houseNumber: String,
+            @field:SerializedName("visitorNumber") var visitorNumber: String,
+            @field:SerializedName(
+                "estampStatus"
+            ) var estampStatus: String
+        ) {
+
+            fun getuId(): String {
+                return uId
+            }
+
+            fun setuId(uId: String) {
+                this.uId = uId
+            }
+
+        }
+    }
 }

@@ -1,7 +1,6 @@
 package com.wacinfo.visitorcloud.ui.checkout
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
@@ -22,6 +21,7 @@ import belka.us.androidtoggleswitch.widgets.ToggleSwitch
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.android.material.textfield.TextInputEditText
+import com.google.gson.Gson
 import com.squareup.picasso.OkHttp3Downloader
 import com.squareup.picasso.Picasso
 import com.stfalcon.imageviewer.StfalconImageViewer
@@ -35,9 +35,7 @@ import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.Request
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.HttpException
@@ -203,6 +201,8 @@ class CheckoutDetailActivity : AppCompatActivity(), View.OnClickListener {
         binding.licenseplateEdt.setText(objDetail?.licensePlate)
         binding.terminalEdt.setText(objDetail?.terminalIn)
         binding.timeinEdt.setText(PublicFunction().convertToNewFormat(objDetail?.recordTimeIn.toString()))
+
+        getEStamp()
     }
 
     private fun checkOut(checkoutData: RetrofitData.VisitorDetail) {
@@ -887,5 +887,52 @@ class CheckoutDetailActivity : AppCompatActivity(), View.OnClickListener {
         override fun onPrintResult(code: Int, msg: String) {
             Log.e(TAG, "code:$code,msg:$msg")
         }
+    }
+
+    private fun getEStamp() {
+        val rdialog= PublicFunction().retrofitDialog(this)
+        if (!rdialog!!.isShowing) {
+            runOnUiThread {
+                rdialog.show()
+            }
+        }
+        val url = getString(R.string.URL) + getString(R.string.PORT)
+        val api = getString(R.string.API_E_Stamp)
+        val client: OkHttpClient = OkHttpClient.Builder().addInterceptor(TokenInterceptor(this)).build()
+        val retrofit = Retrofit.Builder()
+            .baseUrl("$url$api/")
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build()
+        retrofit.create(API::class.java)
+            .getEStamp(AppSettings.USER_ID, objDetail?.contactPlace.toString(), objDetail?.visitorNumber.toString(), "offline", "1", "-1")
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : Observer<RetrofitData.EStamp.GetRespones> {
+                override fun onSubscribe(d: Disposable) {}
+                override fun onNext(respones: RetrofitData.EStamp.GetRespones) {
+                    Log.d(TAG, Gson().toJson(respones))
+//                    var resp: String? = respones.message?.result?.get(0)?.estampStatus
+                    var resp: String? = respones.message?.result?.get(0)?.estampStatus
+                    if (resp == "มา") {
+                        resp = "ยังไม่ได้แสตมป์"
+                    } else if (resp == "พบ") {
+                        resp = "แสตมป์แล้ว"
+                    }
+                    binding.estampEdt.setText(resp)
+                    rdialog.cancel()
+
+                }
+
+                override fun onError(e: Throwable) {
+                    binding.estampEdt.setText(getString(R.string.No_Data))
+                    rdialog.cancel()
+                    e.printStackTrace()
+                    Log.d(TAG, e.toString())
+                }
+
+                override fun onComplete() {}
+            })
     }
 }

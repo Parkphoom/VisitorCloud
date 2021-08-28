@@ -244,7 +244,7 @@ class WelcomeActivity : AppCompatActivity() {
                         AppSettings.USER_NAME = username.toString()
                         AppSettings.USER_RULE = rule.toString().toUpperCase(Locale.ROOT)
                         Log.d(TAG, "onNext: ${AppSettings.ACCESS_TOKEN}")
-                        Log.d(TAG, "onNext: ${AppSettings.USER_ID}")
+                        Log.d(TAG, "onNext: USER_ID ${AppSettings.USER_ID}")
                         dialog.cancel()
                         syncSettings(userID.toString(), AppSettings.ACCESS_TOKEN)
 

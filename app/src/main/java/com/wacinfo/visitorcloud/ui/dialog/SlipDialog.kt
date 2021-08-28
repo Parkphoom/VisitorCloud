@@ -1,7 +1,6 @@
 package com.wacinfo.visitorcloud.ui.dialog
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
@@ -13,14 +12,17 @@ import android.os.Bundle
 import android.os.Environment
 import android.os.RemoteException
 import android.provider.OpenableColumns
+import android.text.InputType
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.TextView
 import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProviders
 import cn.pedant.SweetAlert.SweetAlertDialog
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.input.getInputField
+import com.afollestad.materialdialogs.input.input
 import com.google.gson.Gson
 import com.sunmi.peripheral.printer.InnerResultCallbcak
 import com.wacinfo.visitorcloud.MainActivity
@@ -124,6 +126,7 @@ class SlipDialog : DialogFragment(), View.OnClickListener {
             }
 
         }
+
 
         return root
     }
@@ -238,7 +241,7 @@ class SlipDialog : DialogFragment(), View.OnClickListener {
                             sunmiPrintSlip(pDialog)
                         } else {
                             pDialog.cancel()
-                            dialog?.cancel()
+//                            dialog?.cancel()
                             finishTask()
                         }
 
@@ -506,13 +509,21 @@ class SlipDialog : DialogFragment(), View.OnClickListener {
 
             //print signature
             if (getSwitchSetting(getString(R.string.Pref_Setting_SG))) {
-                sunmiPrinterService!!.printTextWithFont(setPrintBottom(), "", 25f, innerResultCallbcak)
+                sunmiPrinterService!!.printTextWithFont(
+                    setPrintBottom(),
+                    "",
+                    25f,
+                    innerResultCallbcak
+                )
                 sunmiPrinterService!!.lineWrap(2, innerResultCallbcak)
             }
 
             if (getSwitchSetting(getString(R.string.Pref_Setting_EP))) {
                 val bottom: String =
-                    requireContext().getSharedPreferences(getString(R.string.SharePreferencesSetting), 0)
+                    requireContext().getSharedPreferences(
+                        getString(R.string.SharePreferencesSetting),
+                        0
+                    )
                         .getString(getString(R.string.Pref_Setting_EP_Text), "")!!
                 if (bottom != "") {
                     sunmiPrinterService!!.printTextWithFont(
@@ -656,8 +667,92 @@ class SlipDialog : DialogFragment(), View.OnClickListener {
     }
 
     private fun finishTask() {
-        val intent = Intent(requireContext(), MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        startActivity(intent)
+        requireActivity().runOnUiThread {
+            val body = RetrofitData.EStamp.Body( AppSettings.USER_ID, AppSettings.UID,
+                "offline",place, visitorNumber, "มา")
+
+            postEStamp(body)
+//            MaterialDialog(requireContext()).show {
+//                title(R.string.e_stamp)
+//                input(
+//                    hintRes = R.string.home_id_hint,
+//                    waitForPositiveButton = false,
+//                    inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_CLASS_PHONE
+//                )
+//                { dialog, text ->
+//
+//
+//                }
+//                positiveButton(R.string.save) {
+//                    val homeId = it.getInputField().text
+//                    if (homeId.isNotEmpty()) {
+//                        val body = RetrofitData.EStamp.Body( AppSettings.USER_ID, AppSettings.UID,
+//                            "offline", homeId.toString(), visitorNumber, "มา")
+//
+//                        postEStamp(body)
+//                    }
+//
+//
+//
+//
+//                }
+//                negativeButton(R.string.Skip) {
+//                    dialog?.cancel()
+//                    val intent = Intent(requireContext(), MainActivity::class.java)
+//                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+//                    startActivity(intent)
+//                }
+//            }
+        }
+
+
+    }
+
+    private fun postEStamp(estampbody: RetrofitData.EStamp.Body) {
+        val rdialog= PublicFunction().retrofitDialog(requireContext())
+        if (!rdialog!!.isShowing) {
+            requireActivity().runOnUiThread {
+                rdialog.show()
+            }
+        }
+        val url = getString(R.string.URL) + getString(R.string.PORT)
+        val api = getString(R.string.API_E_Stamp)
+        val client: OkHttpClient =
+            OkHttpClient.Builder().addInterceptor(TokenInterceptor(requireActivity())).build()
+        val retrofit = Retrofit.Builder()
+            .baseUrl(url)
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build()
+        retrofit.create(API::class.java)
+            .postEStamp(estampbody, api)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : Observer<RetrofitData.EStamp.Respones> {
+                override fun onSubscribe(d: Disposable) {}
+                override fun onNext(respones: RetrofitData.EStamp.Respones) {
+                    PublicFunction().message(
+                        requireActivity(),
+                        getString(R.string.e_stamp) + " สำเร็จ"
+                    )
+                    rdialog.cancel()
+
+                    dialog?.cancel()
+                    val intent = Intent(requireContext(), MainActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    startActivity(intent)
+                    Log.d(TAG, Gson().toJson(respones.message))
+                }
+
+                override fun onError(e: Throwable) {
+                    PublicFunction().errorDialog(rdialog).show()
+                    rdialog.cancel()
+                    e.printStackTrace()
+                    Log.d(TAG, e.toString())
+                }
+
+                override fun onComplete() {}
+            })
     }
 }
