@@ -27,6 +27,10 @@ import java.io.File
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
+import android.telephony.TelephonyManager
+
+
+
 
 class PublicFunction {
     fun message(activity: Activity, msg: String?) {
@@ -188,5 +192,18 @@ class PublicFunction {
             .setConfirmClickListener(null)
             .changeAlertType(SweetAlertDialog.SUCCESS_TYPE)
         return dialog
+    }
+    @SuppressLint("HardwareIds")
+    fun getDeviceIMEI(context: Context): String? {
+        var deviceUniqueIdentifier: String? = null
+        val tm = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager?
+        if (null != tm) {
+            deviceUniqueIdentifier = tm.deviceId
+        }
+        if (null == deviceUniqueIdentifier || 0 == deviceUniqueIdentifier.length) {
+            deviceUniqueIdentifier =
+                Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID)
+        }
+        return deviceUniqueIdentifier
     }
 }

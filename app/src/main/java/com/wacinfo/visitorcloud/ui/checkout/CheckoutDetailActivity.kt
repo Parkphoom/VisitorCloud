@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.Parcelable
 import android.os.RemoteException
+import android.telephony.TelephonyManager
 import android.util.Log
 import android.view.Gravity
 import android.view.View
@@ -53,6 +54,7 @@ class CheckoutDetailActivity : AppCompatActivity(), View.OnClickListener {
     private val TAG: String = "CheckoutDetailLog"
     private var prefs: SharedPreferences? = null
     private var objDetail: RetrofitData.Checknum.Detail? = null
+    private var objVisitorUp: RetrofitData.VisitorDetail.Detail? = null
     private val binding: ActivityCheckoutDetailBinding by lazy {
         ActivityCheckoutDetailBinding.inflate(
             layoutInflater
@@ -231,16 +233,19 @@ class CheckoutDetailActivity : AppCompatActivity(), View.OnClickListener {
 
                 override fun onNext(t: RetrofitData.VisitorDetail) {
                     val result = t.message?.status
+
                     val dialog = PublicFunction().retrofitDialog(this@CheckoutDetailActivity)
                     dialog?.show()
 
                     if (result == getString(R.string.Complete)) {
+                        objVisitorUp = t.message
                         PublicFunction().message(
                             this@CheckoutDetailActivity,
                             getString(R.string.save_success)
                         )
                         if (AppSettings.Active_Mode == getString(R.string.Active_Mode_Normal)) {
                             if (binding.printSwitch.isChecked) {
+
                                 sunmiPrintSlip(dialog!!)
                             } else {
                                 dialog?.cancel()
@@ -834,7 +839,7 @@ class CheckoutDetailActivity : AppCompatActivity(), View.OnClickListener {
             """
                 
                 ใบเสร็จรับเงิน
-                *************************
+                   *************************
                 """.trimIndent()
         }
 
@@ -843,12 +848,25 @@ class CheckoutDetailActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun setPrintContent(): String {
-        var printContent = "\nหมายเลข VISITOR:${objDetail?.visitorNumber}"
-        printContent += "\nทะเบียนรถ:${objDetail?.licensePlate}"
-        printContent += "\nเวลาเข้า:${PublicFunction().convertToNewFormat(objDetail!!.recordTimeIn)}"
-        printContent += "\nเวลาออก:${PublicFunction().getDatetimenow()}"
+
+        var printContent = ""
         if (Totalprice > -1) {
+            printContent += "\nโทรศัพท์:${objVisitorUp?.phone}"
+            printContent += "\nโทรสาร:${objVisitorUp?.fax}"
+            printContent += "\n"
+            printContent += "\nหมายเลขเครื่อง:${PublicFunction().getDeviceIMEI(applicationContext)}"
+            printContent += "\nเลขที่ใบเสร็จ:${objVisitorUp?.receiptNumber}"
+            printContent += "\nเลขผู้เสียภาษี:${objVisitorUp?.taxpayerNumber}"
+            printContent += "\nหมายเลข VISITOR:${objDetail?.visitorNumber}"
+            printContent += "\nทะเบียนรถ:${objDetail?.licensePlate}"
+            printContent += "\nเวลาเข้า:${PublicFunction().convertToNewFormat(objDetail!!.recordTimeIn)}"
+            printContent += "\nเวลาออก:${PublicFunction().getDatetimenow()}"
             printContent += "\nค่าบริการจอดรถ:$Totalprice บาท"
+        } else {
+            printContent += "\nหมายเลข VISITOR:${objDetail?.visitorNumber}"
+            printContent += "\nทะเบียนรถ:${objDetail?.licensePlate}"
+            printContent += "\nเวลาเข้า:${PublicFunction().convertToNewFormat(objDetail!!.recordTimeIn)}"
+            printContent += "\nเวลาออก:${PublicFunction().getDatetimenow()}"
         }
 
 
@@ -890,7 +908,7 @@ class CheckoutDetailActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun getEStamp() {
-        val rdialog= PublicFunction().retrofitDialog(this)
+        val rdialog = PublicFunction().retrofitDialog(this)
         if (!rdialog!!.isShowing) {
             runOnUiThread {
                 rdialog.show()
@@ -898,7 +916,8 @@ class CheckoutDetailActivity : AppCompatActivity(), View.OnClickListener {
         }
         val url = getString(R.string.URL) + getString(R.string.PORT)
         val api = getString(R.string.API_E_Stamp)
-        val client: OkHttpClient = OkHttpClient.Builder().addInterceptor(TokenInterceptor(this)).build()
+        val client: OkHttpClient =
+            OkHttpClient.Builder().addInterceptor(TokenInterceptor(this)).build()
         val retrofit = Retrofit.Builder()
             .baseUrl("$url$api/")
             .client(client)
@@ -906,7 +925,14 @@ class CheckoutDetailActivity : AppCompatActivity(), View.OnClickListener {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
         retrofit.create(API::class.java)
-            .getEStamp(AppSettings.USER_ID, objDetail?.contactPlace.toString(), objDetail?.visitorNumber.toString(), "offline", "1", "-1")
+            .getEStamp(
+                AppSettings.USER_ID,
+                objDetail?.contactPlace.toString(),
+                objDetail?.visitorNumber.toString(),
+                "offline",
+                "1",
+                "-1"
+            )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<RetrofitData.EStamp.GetRespones> {
@@ -914,14 +940,22 @@ class CheckoutDetailActivity : AppCompatActivity(), View.OnClickListener {
                 override fun onNext(respones: RetrofitData.EStamp.GetRespones) {
                     Log.d(TAG, Gson().toJson(respones))
 //                    var resp: String? = respones.message?.result?.get(0)?.estampStatus
-                    var resp: String? = respones.message?.result?.get(0)?.estampStatus
-                    if (resp == "มา") {
-                        resp = "ยังไม่ได้แสตมป์"
-                    } else if (resp == "พบ") {
-                        resp = "แสตมป์แล้ว"
+                    if (respones.message?.result?.isNotEmpty()!!) {
+                        var resp: String? = respones.message?.result?.get(0)?.estampStatus
+
+                        if (resp == "มา") {
+                            resp = "ยังไม่ได้แสตมป์"
+                        } else if (resp == "พบ") {
+                            resp = "แสตมป์แล้ว"
+                        }
+                        binding.estampEdt.setText(resp)
+                        rdialog.cancel()
+                    } else {
+                        binding.estampEdt.setText("ยังไม่ได้แสตมป์")
+                        rdialog.cancel()
+
                     }
-                    binding.estampEdt.setText(resp)
-                    rdialog.cancel()
+
 
                 }
 

@@ -525,7 +525,7 @@ class RetrofitData {
 
         class Detail {
             @SerializedName("status")
-            var status: String? = null
+            var status: String? = ""
 
             @SerializedName("total")
             var total: String? = null
@@ -533,6 +533,17 @@ class RetrofitData {
             @SerializedName("result")
             var result: List<VisitorDetail>? = null
 
+            @SerializedName("receiptNumber")
+            var receiptNumber: String? = ""
+
+            @SerializedName("phone")
+            var phone: String? = ""
+
+            @SerializedName("fax")
+            var fax: String? = ""
+
+            @SerializedName("taxpayerNumber")
+            var taxpayerNumber: String? = ""
         }
     }
 

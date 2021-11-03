@@ -667,6 +667,7 @@ class SlipDialog : DialogFragment(), View.OnClickListener {
     }
 
     private fun finishTask() {
+
         requireActivity().runOnUiThread {
             val body = RetrofitData.EStamp.Body( AppSettings.USER_ID, AppSettings.UID,
                 "offline",place, visitorNumber, "มา")
@@ -739,17 +740,23 @@ class SlipDialog : DialogFragment(), View.OnClickListener {
                     rdialog.cancel()
 
                     dialog?.cancel()
+
                     val intent = Intent(requireContext(), MainActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                     startActivity(intent)
+
                     Log.d(TAG, Gson().toJson(respones.message))
                 }
 
                 override fun onError(e: Throwable) {
-                    PublicFunction().errorDialog(rdialog).show()
+//                    PublicFunction().errorDialog(rdialog).show()
                     rdialog.cancel()
                     e.printStackTrace()
                     Log.d(TAG, e.toString())
+
+                    val intent = Intent(requireContext(), MainActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    startActivity(intent)
                 }
 
                 override fun onComplete() {}

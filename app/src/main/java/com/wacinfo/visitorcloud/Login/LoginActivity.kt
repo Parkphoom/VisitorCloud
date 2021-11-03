@@ -173,7 +173,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                         AppSettings.USER_NAME = binding.usernameEdt.text.toString()
                         AppSettings.USER_RULE = rule.toString().toUpperCase()
 //                        Log.d(TAG, "onNext: ${AppSettings.ACCESS_TOKEN}")
-//                        Log.d(TAG, "onNext: ${AppSettings.USER_ID}")
+                        Log.d(TAG, "onNext: ${AppSettings.USER_ID}")
                         dialog.cancel()
                         syncSettings(userID.toString(), AppSettings.ACCESS_TOKEN)
 
