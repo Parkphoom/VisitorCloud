@@ -293,12 +293,128 @@
                 android:textAlignment="viewStart"
                 android:textColor="@color/black" />
         </LinearLayout>
+        <LinearLayout
+            android:id="@+id/follower_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/licenseplate_layout"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".4"
+                android:text="@string/follower"
+                android:textAlignment="textStart"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/follower_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".6"
+                android:background="@android:color/transparent"
+                android:textAlignment="viewStart"
+                android:textColor="@color/black" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/department_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/follower_layout"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".4"
+                android:text="@string/department"
+                android:textAlignment="textStart"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/department_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".6"
+                android:background="@android:color/transparent"
+                android:textAlignment="viewStart"
+                android:textColor="@color/black" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/contactTopic_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/department_layout"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".4"
+                android:text="@string/contactTopic"
+                android:textAlignment="textStart"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/contactTopic_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".6"
+                android:background="@android:color/transparent"
+                android:textAlignment="viewStart"
+                android:textColor="@color/black" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/etc_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/contactTopic_layout"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".4"
+                android:text="@string/etc"
+                android:textAlignment="textStart"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/etc_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".6"
+                android:background="@android:color/transparent"
+                android:textAlignment="viewStart"
+                android:textColor="@color/black" />
+        </LinearLayout>
 
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/printSwitch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/licenseplate_layout"
+            android:layout_below="@id/etc_layout"
             android:layout_marginStart="4dp"
             android:checked="true"
             android:text="@string/print_slip" />

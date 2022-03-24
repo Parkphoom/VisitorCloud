@@ -32,10 +32,16 @@ class AboutDialog : DialogFragment() {
     var visitorTimeOut = ""
     var vehicleType = ""
     var licensePlate = ""
+    var follower = ""
+    var department = ""
+    var contactTopic = ""
+    var etc = ""
     var terminalin = ""
     var terminal_out = ""
     var imgCardUrl = ""
     var imgCamUrl = ""
+    var imgCamUrl2 = ""
+    var imgCamUrl3 = ""
 
     companion object {
         fun newInstance(): AboutDialog = AboutDialog().apply {
@@ -67,12 +73,12 @@ class AboutDialog : DialogFragment() {
         val apiname = getString(R.string.API_GetImages)
 
 
-        if(imgCardUrl.isNotEmpty()){
+        if (imgCardUrl.isNotEmpty()) {
             picasso
                 .load(
                     "${url}$apiname${imgCardUrl}?width=144&height=144"
                 )
-                .transform(WatermarkTransformation(requireContext(),getString(R.string.app_name)))
+                .transform(WatermarkTransformation(requireContext(), getString(R.string.app_name)))
                 .into(binding.imgTitle)
 
             binding.imgTitle.setOnClickListener {
@@ -89,7 +95,12 @@ class AboutDialog : DialogFragment() {
                                 .build()
                             picasso
                                 .load(image)
-                                .transform(WatermarkTransformation(requireContext(),getString(R.string.app_name)))
+                                .transform(
+                                    WatermarkTransformation(
+                                        requireContext(),
+                                        getString(R.string.app_name)
+                                    )
+                                )
                                 .into(imageView)
                         })
                         .show()
@@ -97,12 +108,12 @@ class AboutDialog : DialogFragment() {
             }
         }
 
-        if(imgCamUrl.isNotEmpty()){
+        if (imgCamUrl.isNotEmpty()) {
             picasso
                 .load(
                     "${url}$apiname${imgCamUrl}?width=144&height=144"
                 )
-                .transform(WatermarkTransformation(requireContext(),getString(R.string.app_name)))
+                .transform(WatermarkTransformation(requireContext(), getString(R.string.app_name)))
                 .into(binding.imgCam)
             binding.imgCam.setOnClickListener {
                 dialog?.context?.let { it1 ->
@@ -118,14 +129,84 @@ class AboutDialog : DialogFragment() {
                                 .build()
                             picasso
                                 .load(image)
-                                .transform(WatermarkTransformation(requireContext(),getString(R.string.app_name)))
+                                .transform(
+                                    WatermarkTransformation(
+                                        requireContext(),
+                                        getString(R.string.app_name)
+                                    )
+                                )
                                 .into(imageView)
                         })
                         .show()
                 }
             }
         }
-
+        if (imgCamUrl2.isNotEmpty()) {
+            picasso
+                .load(
+                    "${url}$apiname${imgCamUrl2}?width=144&height=144"
+                )
+                .transform(WatermarkTransformation(requireContext(), getString(R.string.app_name)))
+                .into(binding.imgCam2)
+            binding.imgCam2.setOnClickListener {
+                dialog?.context?.let { it1 ->
+                    StfalconImageViewer.Builder(context,
+                        ArrayList(
+                            listOf(
+                                "${url}$apiname${imgCamUrl2}?width=400&height=400"
+                            )
+                        ),
+                        ImageLoader { imageView, image ->
+                            val picasso = Picasso.Builder(requireContext())
+                                .downloader(OkHttp3Downloader(ConnectManager().authorizationHeader()))
+                                .build()
+                            picasso
+                                .load(image)
+                                .transform(
+                                    WatermarkTransformation(
+                                        requireContext(),
+                                        getString(R.string.app_name)
+                                    )
+                                )
+                                .into(imageView)
+                        })
+                        .show()
+                }
+            }
+        }
+        if (imgCamUrl3.isNotEmpty()) {
+            picasso
+                .load(
+                    "${url}$apiname${imgCamUrl3}?width=144&height=144"
+                )
+                .transform(WatermarkTransformation(requireContext(), getString(R.string.app_name)))
+                .into(binding.imgCam3)
+            binding.imgCam3.setOnClickListener {
+                dialog?.context?.let { it1 ->
+                    StfalconImageViewer.Builder(context,
+                        ArrayList(
+                            listOf(
+                                "${url}$apiname${imgCamUrl3}?width=400&height=400"
+                            )
+                        ),
+                        ImageLoader { imageView, image ->
+                            val picasso = Picasso.Builder(requireContext())
+                                .downloader(OkHttp3Downloader(ConnectManager().authorizationHeader()))
+                                .build()
+                            picasso
+                                .load(image)
+                                .transform(
+                                    WatermarkTransformation(
+                                        requireContext(),
+                                        getString(R.string.app_name)
+                                    )
+                                )
+                                .into(imageView)
+                        })
+                        .show()
+                }
+            }
+        }
 
 
     }
@@ -155,6 +236,10 @@ class AboutDialog : DialogFragment() {
         binding.tvCitizenID.text = visitorCid
         binding.tvVehicleType.text = vehicleType
         binding.tvLicensePlate.text = licensePlate
+        binding.tvFollower.text = follower
+        binding.tvDepartment.text = department
+        binding.tvContactTopic.text = contactTopic
+        binding.tvEtc.text = etc
         binding.tvTerminalIn.text = terminalin
         binding.tvTerminalOut.text = terminal_out
 

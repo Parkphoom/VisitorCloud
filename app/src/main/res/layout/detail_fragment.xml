@@ -58,8 +58,7 @@
                         android:layout_height="wrap_content"
                         android:imeOptions="actionNext"
                         android:inputType="textNoSuggestions"
-                        android:textColor="@color/adrift_in_dreams"
-                        />
+                        android:textColor="@color/adrift_in_dreams" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -89,8 +88,7 @@
                         android:imeOptions="actionNext"
                         android:inputType="number"
                         android:maxLength="13"
-                        android:textColor="@color/adrift_in_dreams"
-                        />
+                        android:textColor="@color/adrift_in_dreams" />
                 </com.google.android.material.textfield.TextInputLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -120,8 +118,7 @@
                     android:layout_height="wrap_content"
                     android:imeOptions="actionNext"
                     android:inputType="number"
-                    android:textColor="@color/adrift_in_dreams"
-                    />
+                    android:textColor="@color/adrift_in_dreams" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -157,16 +154,16 @@
                     android:textStyle="bold" />
 
                 <EditText
-                    android:focusable="false"
-                    android:clickable="false"
-                    android:paddingEnd="3dp"
                     android:id="@+id/type_edt"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight=".6"
                     android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:focusable="false"
                     android:imeOptions="actionNext"
                     android:inputType="textNoSuggestions"
+                    android:paddingEnd="3dp"
                     android:textAlignment="viewStart"
                     android:textColor="@color/adrift_in_dreams"
                     android:textColorHighlight="@color/adrift_in_dreams"
@@ -290,7 +287,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight=".6"
                     android:background="@android:color/transparent"
-                    android:imeOptions="actionDone"
+                    android:imeOptions="actionNext"
                     android:inputType="textNoSuggestions"
                     android:textAlignment="viewStart"
                     android:textColor="@color/adrift_in_dreams"
@@ -305,45 +302,300 @@
                     android:src="@drawable/icons8_list_64px" />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/underline"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingTop="5dp"
+                android:paddingBottom="10dp">
 
-            <RelativeLayout
-                android:id="@+id/btn_take_picture"
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".3"
+                    android:text="@string/follower"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/adrift_in_dreams"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/follower_edt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".6"
+                    android:background="@android:color/transparent"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/adrift_in_dreams"
+                    android:textColorHighlight="@color/adrift_in_dreams"
+                    android:theme="@style/EditTextThemeOverlay" />
+
+                <ImageView
+                    android:id="@+id/followerlist_btn"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:gravity="center_vertical"
+                    android:src="@drawable/icons8_list_64px" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/underline"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingTop="5dp"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".3"
+                    android:text="@string/department"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/adrift_in_dreams"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/department_edt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".6"
+                    android:background="@android:color/transparent"
+                    android:imeOptions="actionNext"
+                    android:inputType="textNoSuggestions"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/adrift_in_dreams"
+                    android:textColorHighlight="@color/adrift_in_dreams"
+                    android:theme="@style/EditTextThemeOverlay" />
+
+                <ImageView
+                    android:id="@+id/departmentlist_btn"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:gravity="center_vertical"
+                    android:src="@drawable/icons8_list_64px" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/underline"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingTop="5dp"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".3"
+                    android:text="@string/contactTopic"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/adrift_in_dreams"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/contactTopic_edt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".6"
+                    android:background="@android:color/transparent"
+                    android:imeOptions="actionNext"
+                    android:inputType="textNoSuggestions"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/adrift_in_dreams"
+                    android:textColorHighlight="@color/adrift_in_dreams"
+                    android:theme="@style/EditTextThemeOverlay" />
+
+                <ImageView
+                    android:id="@+id/contactTopiclist_btn"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:gravity="center_vertical"
+                    android:src="@drawable/icons8_list_64px" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/underline"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingTop="5dp"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".3"
+                    android:text="@string/etc"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/adrift_in_dreams"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/etc_edt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".6"
+                    android:background="@android:color/transparent"
+                    android:imeOptions="actionDone"
+                    android:inputType="textNoSuggestions"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/adrift_in_dreams"
+                    android:textColorHighlight="@color/adrift_in_dreams"
+                    android:theme="@style/EditTextThemeOverlay" />
+
+                <ImageView
+                    android:id="@+id/etclist_btn"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:gravity="center_vertical"
+                    android:src="@drawable/icons8_list_64px"
+                    android:visibility="invisible" />
+            </LinearLayout>
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="168dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="10dp">
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
 
-                <FrameLayout
-                    android:id="@+id/img_empty"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/grey_light_active">
+                <RelativeLayout
+                    android:id="@+id/btn_take_picture"
+                    android:layout_width="0dp"
+                    android:layout_height="168dp"
+                    android:layout_weight="1">
+
+                    <FrameLayout
+                        android:id="@+id/img_empty"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/grey_light_active">
+
+                        <ImageView
+                            android:id="@+id/img_cam"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/icons8_camera_64px_1"
+                            android:gravity="center"
+                            android:textAllCaps="false"
+                            android:textColor="@android:color/black"
+                            android:theme="@style/ButtonTheme" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:gravity="center"
+                            android:padding="3dp"
+                            android:text="ถ่ายรูป" />
+
+                    </FrameLayout>
 
                     <ImageView
-                        android:id="@+id/img_cam"
-                        android:layout_width="64dp"
-                        android:layout_height="64dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/icons8_camera_64px_1"
-                        android:gravity="center"
-                        android:textAllCaps="false"
-                        android:textColor="@android:color/black"
-                        android:theme="@style/ButtonTheme" />
-
-                    <TextView
+                        android:id="@+id/img_car"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
-                        android:gravity="center"
-                        android:padding="3dp"
-                        android:text="ถ่ายรูป" />
+                        android:layout_height="match_parent" />
+                </RelativeLayout>
 
-                </FrameLayout>
-                <ImageView
-                    android:id="@+id/img_car"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/btn_take_picture2"
+                    android:layout_width="0dp"
+                    android:layout_height="168dp"
+                    android:layout_weight="1">
+
+                    <FrameLayout
+                        android:id="@+id/img2_empty"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/grey_light_active">
+
+                        <ImageView
+                            android:id="@+id/img2_cam"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/icons8_camera_64px_1"
+                            android:gravity="center"
+                            android:textAllCaps="false"
+                            android:textColor="@android:color/black"
+                            android:theme="@style/ButtonTheme" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:gravity="center"
+                            android:padding="3dp"
+                            android:text="ถ่ายรูป" />
+
+                    </FrameLayout>
+
+                    <ImageView
+                        android:id="@+id/img2_car"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:elevation="8dp"
+                    android:id="@+id/btn_take_picture3"
+                    android:layout_width="0dp"
+                    android:layout_height="168dp"
+                    android:layout_weight="1">
+
+                    <FrameLayout
+                        android:id="@+id/img3_empty"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/grey_light_active">
+
+                        <ImageView
+                            android:id="@+id/img3_cam"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/icons8_camera_64px_1"
+                            android:gravity="center"
+                            android:textAllCaps="false"
+                            android:textColor="@android:color/black"
+                            android:theme="@style/ButtonTheme" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:gravity="center"
+                            android:padding="3dp"
+                            android:text="ถ่ายรูป" />
+
+                    </FrameLayout>
+
+                    <ImageView
+                        android:id="@+id/img3_car"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </RelativeLayout>
+            </LinearLayout>
 
 
         </LinearLayout>

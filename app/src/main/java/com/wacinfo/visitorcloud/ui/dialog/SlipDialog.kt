@@ -52,7 +52,6 @@ import java.io.FileOutputStream
 import java.util.*
 import kotlin.concurrent.schedule
 
-
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class SlipDialog : DialogFragment(), View.OnClickListener {
 
@@ -71,8 +70,14 @@ class SlipDialog : DialogFragment(), View.OnClickListener {
     var place = ""
     var vehicle = ""
     var licenseplate = ""
+    var follower = ""
+    var department = ""
+    var contactTopic = ""
+    var etc = ""
     var cardURI: Uri? = null
     var camURI: Uri? = null
+    var cam2URI: Uri? = null
+    var cam3URI: Uri? = null
     private var printUtils: PrintUtils? = null
     private var prefs: SharedPreferences? = null
     private lateinit var sharedViewModel: SharedViewModel
@@ -107,6 +112,10 @@ class SlipDialog : DialogFragment(), View.OnClickListener {
         binding.placeTv.text = place
         binding.vehicleTv.text = vehicle
         binding.licenseplateTv.text = licenseplate
+        binding.followerTv.text = follower
+        binding.departmentTv.text = department
+        binding.contactTopicTv.text = contactTopic
+        binding.etcTv.text = etc
 
         binding.nextBtn.setOnClickListener(this)
         binding.printBtn.setOnClickListener(this)
@@ -199,7 +208,11 @@ class SlipDialog : DialogFragment(), View.OnClickListener {
                 createBody(logData.vehicleType.toString()),
                 createBody(logData.recordStatus.toString()),
                 createBody(logData.terminalIn.toString()),
-                createBody(logData.contactPlace.toString())
+                createBody(logData.contactPlace.toString()),
+                createBody(logData.follower.toString()),
+                createBody(logData.department.toString()),
+                createBody(logData.contactTopic.toString()),
+                createBody(logData.etc.toString())
             )
             ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
@@ -354,51 +367,97 @@ class SlipDialog : DialogFragment(), View.OnClickListener {
         if (v == binding.nextBtn) {
             binding.nextBtn.isEnabled = false
 
-            val pDialog = SweetAlertDialog(requireContext(), SweetAlertDialog.PROGRESS_TYPE)
-            pDialog.progressHelper.barColor = Color.parseColor("#A5DC86")
-            pDialog.titleText = "Loading"
-            pDialog.setCancelable(false)
-            pDialog.show()
 
-            val postdata = RetrofitData.VisitorDetail()
-            postdata.userId = AppSettings.USER_ID
-            postdata.visitorNumber = visitorNumber
-            postdata.citizenId = cid
-            postdata.name = name
-            postdata.visitorType = visitorType
-            postdata.recordTimeIn = ""
-            postdata.licensePlate = licenseplate
-            postdata.vehicleType = vehicle
-            postdata.recordStatus = "in"
-            postdata.terminalIn = requireActivity().getSharedPreferences(
-                getString(R.string.SharePreferencesSetting),
-                0
-            ).getString(getString(R.string.Pref_Terminal), "ไม่ระบุ")
-            postdata.contactPlace = place
+            requireActivity().runOnUiThread(Runnable {
+                val pDialog =
+                    SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE)
+                pDialog.progressHelper.barColor = Color.parseColor("#A5DC86")
+                pDialog.titleText = "Loading"
+                pDialog.setCancelable(false)
+                pDialog.show()
 
-            var card: MultipartBody.Part? = null
-            var cam: MultipartBody.Part? = null
-            if (cardURI != null) {
-                val cardfile = File(getFilePathForN(cardURI, requireContext()))
-                val requestcardFile: RequestBody =
-                    cardfile.asRequestBody("image/png".toMediaTypeOrNull())
-                card = MultipartBody.Part.createFormData("image1", cardfile.name, requestcardFile)
-            }
-            if (camURI != null) {
-                val camfile = File(getFilePathForN(camURI, requireContext()))
-                val requestcamFile: RequestBody =
-                    camfile.asRequestBody("image/png".toMediaTypeOrNull())
-                cam = MultipartBody.Part.createFormData("image2", camfile.name, requestcamFile)
-            }
+                val postdata = RetrofitData.VisitorDetail()
+                postdata.userId = AppSettings.USER_ID
+                postdata.visitorNumber = visitorNumber
+                postdata.citizenId = cid
+                postdata.name = name
+                postdata.visitorType = visitorType
+                postdata.recordTimeIn = ""
+                postdata.licensePlate = licenseplate
+                postdata.follower = follower
+                postdata.department = department
+                postdata.contactTopic = contactTopic
+                postdata.etc = etc
+                postdata.vehicleType = vehicle
+                postdata.recordStatus = "in"
+                postdata.terminalIn = requireActivity().getSharedPreferences(
+                    getString(R.string.SharePreferencesSetting),
+                    0
+                ).getString(getString(R.string.Pref_Terminal), "ไม่ระบุ")
+                postdata.contactPlace = place
 
-            Observable
-                .just(ConnectManager().token(requireActivity(), AppSettings.REFRESH_TOKEN))
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnComplete {
-                    insertLOG(postdata, card, cam, null, null, pDialog)
-                }
-                .subscribe()
+                var card: MultipartBody.Part? = null
+                var cam: MultipartBody.Part? = null
+                var cam2: MultipartBody.Part? = null
+                var cam3: MultipartBody.Part? = null
+
+
+                Observable
+                    .just(
+                        pDialog.show(),
+                        ConnectManager().token(
+                            requireActivity(),
+                            AppSettings.REFRESH_TOKEN
+                        )
+                    )
+                    .subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnComplete {
+                        if (cardURI != null) {
+                            val cardfile = File(getFilePathForN(cardURI, requireContext()))
+                            val requestcardFile: RequestBody =
+                                cardfile.asRequestBody("image/png".toMediaTypeOrNull())
+                            card = MultipartBody.Part.createFormData(
+                                "image1",
+                                cardfile.name,
+                                requestcardFile
+                            )
+                        }
+                        if (camURI != null) {
+                            val camfile = File(getFilePathForN(camURI, requireContext()))
+                            val requestcamFile: RequestBody =
+                                camfile.asRequestBody("image/png".toMediaTypeOrNull())
+                            cam = MultipartBody.Part.createFormData(
+                                "image2",
+                                camfile.name,
+                                requestcamFile
+                            )
+                        }
+                        if (cam2URI != null) {
+                            val camfile = File(getFilePathForN(cam2URI, requireContext()))
+                            val requestcamFile: RequestBody =
+                                camfile.asRequestBody("image/png".toMediaTypeOrNull())
+                            cam2 = MultipartBody.Part.createFormData(
+                                "image3",
+                                camfile.name,
+                                requestcamFile
+                            )
+                        }
+                        if (cam3URI != null) {
+                            val camfile = File(getFilePathForN(cam3URI, requireContext()))
+                            val requestcamFile: RequestBody =
+                                camfile.asRequestBody("image/png".toMediaTypeOrNull())
+                            cam3 = MultipartBody.Part.createFormData(
+                                "image4",
+                                camfile.name,
+                                requestcamFile
+                            )
+                        }
+                        insertLOG(postdata, card, cam, cam2, cam3, pDialog)
+                    }
+                    .subscribe()
+            })
+
 
         }
         if (v == binding.printBtn) {
@@ -669,8 +728,10 @@ class SlipDialog : DialogFragment(), View.OnClickListener {
     private fun finishTask() {
 
         requireActivity().runOnUiThread {
-            val body = RetrofitData.EStamp.Body( AppSettings.USER_ID, AppSettings.UID,
-                "offline",place, visitorNumber, "มา")
+            val body = RetrofitData.EStamp.Body(
+                AppSettings.USER_ID, AppSettings.UID,
+                "offline", place, visitorNumber, "มา"
+            )
 
             postEStamp(body)
 //            MaterialDialog(requireContext()).show {
@@ -710,7 +771,7 @@ class SlipDialog : DialogFragment(), View.OnClickListener {
     }
 
     private fun postEStamp(estampbody: RetrofitData.EStamp.Body) {
-        val rdialog= PublicFunction().retrofitDialog(requireContext())
+        val rdialog = PublicFunction().retrofitDialog(requireContext())
         if (!rdialog!!.isShowing) {
             requireActivity().runOnUiThread {
                 rdialog.show()

@@ -111,6 +111,14 @@ class LogItem /*(1)*/(
                         result.vehicleType.toString()
                     licensePlate =
                         result.licensePlate.toString()
+                    follower =
+                        result.follower.toString()
+                    department =
+                        result.department.toString()
+                    contactTopic =
+                        result.contactTopic.toString()
+                    etc =
+                        result.etc.toString()
                     terminalin =
                         result.terminalIn.toString()
                     terminal_out =
@@ -124,6 +132,13 @@ class LogItem /*(1)*/(
                     }
                     if(result.image2?.isNotEmpty()!!){
                         imgCamUrl = result.image2?.get(0).toString()
+                    }
+
+                    if(result.image3?.isNotEmpty()!!){
+                        imgCamUrl2 = result.image3?.get(0).toString()
+                    }
+                    if(result.image4?.isNotEmpty()!!){
+                        imgCamUrl3 = result.image4?.get(0).toString()
                     }
 
                     onCloseClickListener = {

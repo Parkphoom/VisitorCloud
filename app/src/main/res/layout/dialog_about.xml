@@ -322,16 +322,150 @@
                         android:gravity="end"
                         android:textSize="16sp" />
                 </LinearLayout>
-
-                <ImageView
+                <LinearLayout
+                    android:id="@+id/linearLayout_10"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
-                    android:id="@+id/imgCam"
-                    android:layout_width="match_parent"
-                    android:layout_height="96dp"
-                    android:src="@drawable/icons8_car_64px"
+                    android:layout_marginEnd="16dp"
+                    android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/linearLayout_9" />
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout_9">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="start"
+                        android:text="@string/follower"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_follower"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:textSize="16sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/linearLayout_11"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout_10">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="start"
+                        android:text="@string/department"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_department"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:textSize="16sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/linearLayout_12"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout_11">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="start"
+                        android:text="@string/contactTopic"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_contactTopic"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:textSize="16sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/linearLayout_13"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout_12">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="start"
+                        android:text="@string/etc"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_etc"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/img_layout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout_13"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_weight="1"
+                        android:layout_marginTop="4dp"
+                        android:id="@+id/imgCam"
+                        android:layout_width="match_parent"
+                        android:layout_height="96dp"
+                        android:src="@drawable/icons8_car_64px" />
+                    <ImageView
+                        android:layout_weight="1"
+                        android:layout_marginTop="4dp"
+                        android:id="@+id/imgCam2"
+                        android:layout_width="match_parent"
+                        android:layout_height="96dp"
+                        android:src="@drawable/icons8_car_64px" />
+                    <ImageView
+                        android:layout_weight="1"
+                        android:layout_marginTop="4dp"
+                        android:id="@+id/imgCam3"
+                        android:layout_width="match_parent"
+                        android:layout_height="96dp"
+                        android:src="@drawable/icons8_car_64px" />
+                </LinearLayout>
+
 
                 <Button
                     android:id="@+id/btnCancel"
@@ -345,7 +479,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imgCam" />
+                    app:layout_constraintTop_toBottomOf="@+id/img_layout" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

@@ -205,6 +205,28 @@ class RetrofitData {
             var licensePlate: String? = null
         }
 
+        class Department  {
+            @SerializedName("userId")
+            var userId: String? = null
+
+            @SerializedName("department")
+            var department : String? = null
+        }
+        class ContactTopic  {
+            @SerializedName("userId")
+            var userId: String? = null
+
+            @SerializedName("contactTopic")
+            var contactTopic : String? = null
+        }
+        class ETC  {
+            @SerializedName("userId")
+            var userId: String? = null
+
+            @SerializedName("contactTopic")
+            var contactTopic : String? = null
+        }
+
 
         class Edit {
             @SerializedName("userId")

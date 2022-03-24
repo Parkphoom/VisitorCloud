@@ -83,6 +83,10 @@ class TypelistFragment : Fragment() {
             listObserv = typelistViewModel.vehicletype as MutableLiveData<List<String>>
         } else if (typelistViewModel.PageType.value == typelistViewModel.VEHICLE_LICENSE) {
             listObserv = typelistViewModel.licenseplate as MutableLiveData<List<String>>
+        }else if (typelistViewModel.PageType.value == typelistViewModel.VISITOR_DEPARTMENT) {
+            listObserv = typelistViewModel.department as MutableLiveData<List<String>>
+        }else if (typelistViewModel.PageType.value == typelistViewModel.VISITOR_CONTACTTOPIC) {
+            listObserv = typelistViewModel.department as MutableLiveData<List<String>>
         }
         listObserv.observe(viewLifecycleOwner, {
             listData = it
@@ -216,6 +220,34 @@ class TypelistFragment : Fragment() {
                     .subscribe()
 
 
+            }
+            typelistViewModel.VISITOR_DEPARTMENT -> {
+                apiname = resources.getString(R.string.API_Department)
+                val Data = RetrofitData.Property.Department()
+                Data.userId = AppSettings.USER_ID
+                Data.department = newType
+                Observable
+                    .just(ConnectManager().token(requireActivity(), AppSettings.REFRESH_TOKEN))
+                    .subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnComplete {
+                        addToDepartment(Data, apiname)
+                    }
+                    .subscribe()
+            }
+            typelistViewModel.VISITOR_CONTACTTOPIC -> {
+                apiname = resources.getString(R.string.API_ContactTopic)
+                val Data = RetrofitData.Property.ContactTopic()
+                Data.userId = AppSettings.USER_ID
+                Data.contactTopic = newType
+                Observable
+                    .just(ConnectManager().token(requireActivity(), AppSettings.REFRESH_TOKEN))
+                    .subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnComplete {
+                        addToContactTopic(Data, apiname)
+                    }
+                    .subscribe()
             }
         }
 
@@ -451,6 +483,120 @@ class TypelistFragment : Fragment() {
                 }
             })
     }
+    private fun addToDepartment(typeData: RetrofitData.Property.Department, apiname: String) {
+        val dialog= PublicFunction().retrofitDialog(requireContext())
+        dialog!!.show()
+
+        val url: String = resources.getString(R.string.URL) + resources.getString(R.string.PORT)
+        val client: OkHttpClient =
+            OkHttpClient.Builder().addInterceptor(TokenInterceptor(requireActivity())).build()
+        val retrofit: Retrofit = Retrofit.Builder()
+            .baseUrl(url)
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build()
+        retrofit.create(API::class.java)
+            .postDepartment(typeData, apiname)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : Observer<RetrofitData.Property> {
+                override fun onComplete() {
+                    syncSettings()
+                }
+
+                override fun onSubscribe(d: Disposable) {
+
+                }
+
+                override fun onNext(t: RetrofitData.Property) {
+                    dialog.cancel()
+                    PublicFunction().message(requireActivity(), t.message.toString())
+                }
+
+                override fun onError(e: Throwable) {
+                    PublicFunction().errorDialog(dialog).show()
+                    e.printStackTrace()
+                    Log.d(TAG, e.toString())
+                    if (e is HttpException) {
+                        try {
+                            val jObjError = JSONObject(e.response()!!.errorBody()?.string())
+                            Log.d(TAG, jObjError.getString("message"))
+                            PublicFunction().message(
+                                requireActivity(),
+                                jObjError.getString("message")
+                            )
+                        } catch (e: Exception) {
+                            e.message?.let {
+                                Log.d(TAG, it)
+                                PublicFunction().message(
+                                    requireActivity(),
+                                    it
+                                )
+                            }
+                        }
+                    }
+
+                }
+            })
+    }
+    private fun addToContactTopic(typeData: RetrofitData.Property.ContactTopic, apiname: String) {
+        val dialog= PublicFunction().retrofitDialog(requireContext())
+        dialog!!.show()
+
+        val url: String = resources.getString(R.string.URL) + resources.getString(R.string.PORT)
+        val client: OkHttpClient =
+            OkHttpClient.Builder().addInterceptor(TokenInterceptor(requireActivity())).build()
+        val retrofit: Retrofit = Retrofit.Builder()
+            .baseUrl(url)
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build()
+        retrofit.create(API::class.java)
+            .postContactTopic(typeData, apiname)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : Observer<RetrofitData.Property> {
+                override fun onComplete() {
+                    syncSettings()
+                }
+
+                override fun onSubscribe(d: Disposable) {
+
+                }
+
+                override fun onNext(t: RetrofitData.Property) {
+                    dialog.cancel()
+                    PublicFunction().message(requireActivity(), t.message.toString())
+                }
+
+                override fun onError(e: Throwable) {
+                    PublicFunction().errorDialog(dialog).show()
+                    e.printStackTrace()
+                    Log.d(TAG, e.toString())
+                    if (e is HttpException) {
+                        try {
+                            val jObjError = JSONObject(e.response()!!.errorBody()?.string())
+                            Log.d(TAG, jObjError.getString("message"))
+                            PublicFunction().message(
+                                requireActivity(),
+                                jObjError.getString("message")
+                            )
+                        } catch (e: Exception) {
+                            e.message?.let {
+                                Log.d(TAG, it)
+                                PublicFunction().message(
+                                    requireActivity(),
+                                    it
+                                )
+                            }
+                        }
+                    }
+
+                }
+            })
+    }
 
 
     private fun syncSettings() {
@@ -485,6 +631,12 @@ class TypelistFragment : Fragment() {
                         }
                         typelistViewModel.VEHICLE_LICENSE -> {
                             typelistViewModel.setLicensePlate(AppSettings.licensePlate)
+                        }
+                        typelistViewModel.VISITOR_DEPARTMENT -> {
+                            typelistViewModel.setDepartment(AppSettings.department)
+                        }
+                        typelistViewModel.VISITOR_CONTACTTOPIC -> {
+                            typelistViewModel.setDepartment(AppSettings.contactTopic)
                         }
                     }
 

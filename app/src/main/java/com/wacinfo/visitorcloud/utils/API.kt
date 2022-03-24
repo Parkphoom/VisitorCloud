@@ -115,6 +115,32 @@ interface API {
         @Path(value = "api", encoded = true) api: String
     )
             : Observable<RetrofitData.Property>
+    //Department
+    @POST("{api}")
+    fun postDepartment(
+        @Body data: RetrofitData.Property.Department,
+        @Path(value = "api", encoded = true) api: String
+    ): Observable<RetrofitData.Property>
+
+    @HTTP(method = "DELETE", path = "{api}", hasBody = true)
+    fun deleteDepartment(
+        @Body data: RetrofitData.Property.Department,
+        @Path(value = "api", encoded = true) api: String
+    )
+            : Observable<RetrofitData.Property>
+    //ContactTopic
+    @POST("{api}")
+    fun postContactTopic(
+        @Body data: RetrofitData.Property.ContactTopic,
+        @Path(value = "api", encoded = true) api: String
+    ): Observable<RetrofitData.Property>
+
+    @HTTP(method = "DELETE", path = "{api}", hasBody = true)
+    fun deleteContactTopic(
+        @Body data: RetrofitData.Property.ContactTopic,
+        @Path(value = "api", encoded = true) api: String
+    )
+            : Observable<RetrofitData.Property>
 
     @GET("{vid}")
     fun getChecknum(
@@ -140,7 +166,11 @@ interface API {
         @Part("vehicleType") vehicleType: RequestBody,
         @Part("recordStatus") recordStatus: RequestBody,
         @Part("terminalIn") terminalIn: RequestBody,
-        @Part("contactPlace") contactPlace: RequestBody
+        @Part("contactPlace") contactPlace: RequestBody,
+        @Part("follower") follower: RequestBody,
+        @Part("department") department: RequestBody,
+        @Part("contactTopic") contactTopic: RequestBody,
+        @Part("etc") etc: RequestBody
 
     ): Observable<RetrofitData.VisitorDetail?>?
 

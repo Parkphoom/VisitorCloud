@@ -84,6 +84,8 @@ class DetailFragment : Fragment(), View.OnClickListener {
         private const val TAG = "DetailLog"
         private const val Image_Card_Code = 10011
         private const val Image_Cam_Code = 10022
+        private const val Image_Cam_Code_2 = 20022
+        private const val Image_Cam_Code_3 = 30022
 
         val REQUEST_WRITE_STORAGE_REQUEST_CODE = 101
         val REQUEST_WRITE_STORAGE_REQUEST_CODE_PERSON = 102
@@ -169,6 +171,8 @@ class DetailFragment : Fragment(), View.OnClickListener {
     var photoURI: Uri? = null
     var CardURI: Uri? = null
     var CamURI: Uri? = null
+    var Cam2URI: Uri? = null
+    var Cam3URI: Uri? = null
     private lateinit var viewModel: DetailViewModel
     private lateinit var binding: DetailFragmentBinding
     private lateinit var sharedViewModel: SharedViewModel
@@ -237,6 +241,14 @@ class DetailFragment : Fragment(), View.OnClickListener {
         viewModel.Car_uri.observe(viewLifecycleOwner, {
             binding.imgEmpty.visibility = View.GONE
             binding.imgCar.setImageURI(it)
+        })
+        viewModel.Car_uri_2.observe(viewLifecycleOwner, {
+            binding.img2Empty.visibility = View.GONE
+            binding.img2Car.setImageURI(it)
+        })
+        viewModel.Car_uri_3.observe(viewLifecycleOwner, {
+            binding.img3Empty.visibility = View.GONE
+            binding.img3Car.setImageURI(it)
         })
 
         viewModel.visitorId.observe(viewLifecycleOwner, {
@@ -308,14 +320,25 @@ class DetailFragment : Fragment(), View.OnClickListener {
 
             }
         }
+        if (requestCode == Image_Cam_Code_2) {
+            if (resultCode == Activity.RESULT_OK) {
+                if (photoURI != null) {
+                    viewModel.setCarUri2(photoURI!!)
+                    Cam2URI = photoURI
+                }
 
+            }
+        }
+        if (requestCode == Image_Cam_Code_3) {
+            if (resultCode == Activity.RESULT_OK) {
+                if (photoURI != null) {
+                    viewModel.setCarUri3(photoURI!!)
+                    Cam3URI = photoURI
+                }
+
+            }
+        }
     }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-    }
-
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         Log.d(TAG, "onOptionsItemSelected: ${item.itemId}")
@@ -330,6 +353,8 @@ class DetailFragment : Fragment(), View.OnClickListener {
 
     private fun initView() {
         binding.btnTakePicture.setOnClickListener(this)
+        binding.btnTakePicture2.setOnClickListener(this)
+        binding.btnTakePicture3.setOnClickListener(this)
         binding.imgCam.setOnClickListener(this)
         binding.imgCard.setOnClickListener(this)
         binding.typelistBtn.setOnClickListener(this)
@@ -337,6 +362,9 @@ class DetailFragment : Fragment(), View.OnClickListener {
         binding.vehiclelistBtn.setOnClickListener(this)
         binding.nextBtn.setOnClickListener(this)
         binding.licenseplatelistBtn.setOnClickListener(this)
+        binding.followerlistBtn.setOnClickListener(this)
+        binding.departmentlistBtn.setOnClickListener(this)
+        binding.contactTopiclistBtn.setOnClickListener(this)
         binding.tvRequestVid.setOnClickListener(this)
 
         binding.typeEdt.addTextChangedListener(object : TextWatcher {
@@ -430,6 +458,12 @@ class DetailFragment : Fragment(), View.OnClickListener {
         if (v == binding.btnTakePicture || v == binding.imgCam) {
             openCamera("Img_Cam", Image_Cam_Code)
         }
+        if (v == binding.btnTakePicture2 || v == binding.img2Cam) {
+            openCamera("Img_Cam2", Image_Cam_Code_2)
+        }
+        if (v == binding.btnTakePicture3 || v == binding.img3Cam) {
+            openCamera("Img_Cam3", Image_Cam_Code_3)
+        }
         if (v == binding.imgCard) {
             openCamera("Img_Card", Image_Card_Code)
         }
@@ -484,6 +518,34 @@ class DetailFragment : Fragment(), View.OnClickListener {
             }
 
         }
+        if (v == binding.followerlistBtn) {
+            viewModel.createNumberWheel(
+                requireActivity(),
+                binding.followerEdt
+            )
+        }
+        if (v == binding.contactTopiclistBtn) {
+            if (AppSettings.contactTopic.isNullOrEmpty()) {
+                PublicFunction().message(requireActivity(), "ไม่มีข้อมูล")
+            } else {
+                viewModel.createSelectWheel(
+                    requireActivity(),
+                    AppSettings.contactTopic,
+                    binding.contactTopicEdt
+                )
+            }
+        }
+        if (v == binding.departmentlistBtn) {
+            if (AppSettings.department.isNullOrEmpty()) {
+                PublicFunction().message(requireActivity(), "ไม่มีข้อมูล")
+            } else {
+                viewModel.createSelectWheel(
+                    requireActivity(),
+                    AppSettings.department,
+                    binding.departmentEdt
+                )
+            }
+        }
         if (v == binding.nextBtn) {
 
             if (binding.vidEdt.text.isNullOrEmpty()) {
@@ -492,7 +554,7 @@ class DetailFragment : Fragment(), View.OnClickListener {
             } else if (binding.typeEdt.text.isNullOrEmpty()) {
                 binding.typeEdt.error = getString(R.string.necessary)
             } else if (!binding.vidEdtLayout.isErrorEnabled && !binding.typeEdt.text.isNullOrEmpty()) {
-                val dialog= PublicFunction().retrofitDialog(requireContext())
+                val dialog = PublicFunction().retrofitDialog(requireContext())
                 if (!dialog!!.isShowing) {
                     requireActivity().runOnUiThread {
                         dialog.show()
@@ -567,8 +629,14 @@ class DetailFragment : Fragment(), View.OnClickListener {
                 place = binding.placeEdt.text.toString()
                 vehicle = binding.vehicleEdt.text.toString()
                 licenseplate = binding.licenseplateEdt.text.toString()
+                follower = binding.followerEdt.text.toString()
+                department = binding.departmentEdt.text.toString()
+                contactTopic = binding.contactTopicEdt.text.toString()
+                etc = binding.etcEdt.text.toString()
                 cardURI = CardURI
                 camURI = CamURI
+                cam2URI = Cam2URI
+                cam3URI = Cam3URI
                 onCloseListener = {
                     requireActivity().onBackPressed()
                 }
@@ -821,7 +889,13 @@ class DetailFragment : Fragment(), View.OnClickListener {
                                 2 -> {
                                     run {
                                         val namesplit = finalRecStr.split(" ")
-                                        binding.nameEdt.setText("${namesplit[0]}${namesplit[1]} ${namesplit.get(2)}")
+                                        binding.nameEdt.setText(
+                                            "${namesplit[0]}${namesplit[1]} ${
+                                                namesplit.get(
+                                                    2
+                                                )
+                                            }"
+                                        )
                                         Log.d("readcard2", finalRecStr)
                                     }
 
@@ -1102,7 +1176,7 @@ class DetailFragment : Fragment(), View.OnClickListener {
                             checkAppointment(dialog)
 
                             createSlip()
-                        }else{
+                        } else {
                             dialog.cancel()
                         }
 
@@ -1270,9 +1344,9 @@ class DetailFragment : Fragment(), View.OnClickListener {
     }
 
     fun filter(mainstr: String, constraint: String): Boolean {
-        mainstr.replace("นางสาว","").replace("นาง","")
-            .replace("นาย","").replace("เด็กหญิง","")
-            .replace("เด็กชาย","")
+        mainstr.replace("นางสาว", "").replace("นาง", "")
+            .replace("นาย", "").replace("เด็กหญิง", "")
+            .replace("เด็กชาย", "")
         if (mainstr.toLowerCase(Locale.ROOT).contains(constraint.toLowerCase(Locale.ROOT), true)) {
             return true
         }

@@ -14,6 +14,7 @@ import androidx.core.view.MenuItemCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
+import com.google.gson.Gson
 import com.wacinfo.visitorcloud.Adapter.AbstractFragment
 import com.wacinfo.visitorcloud.Adapter.LogItem
 import com.wacinfo.visitorcloud.Adapter.ProgressItem

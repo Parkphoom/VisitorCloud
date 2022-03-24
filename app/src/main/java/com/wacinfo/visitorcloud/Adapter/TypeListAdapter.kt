@@ -101,7 +101,7 @@ class TypeListAdapter(
 
         val url: String =
             mContext.resources.getString(R.string.URL) + mContext.resources.getString(R.string.PORT)
-        val apiname = mContext.resources.getString(R.string.API_Property)
+        val apiname = mContext.resources.getString(R.string. API_Property)
         val userID = AppSettings.USER_ID
         val client: OkHttpClient =
             OkHttpClient.Builder().addInterceptor(TokenInterceptor(mContext as Activity)).build()
@@ -130,6 +130,12 @@ class TypeListAdapter(
                         }
                         mViewModel.VEHICLE_LICENSE -> {
                             mViewModel.setLicensePlate(AppSettings.licensePlate)
+                        }
+                        mViewModel.VISITOR_DEPARTMENT -> {
+                            mViewModel.setDepartment(AppSettings.department)
+                        }
+                        mViewModel.VISITOR_CONTACTTOPIC -> {
+                            mViewModel.setDepartment(AppSettings.contactTopic)
                         }
                     }
                 }

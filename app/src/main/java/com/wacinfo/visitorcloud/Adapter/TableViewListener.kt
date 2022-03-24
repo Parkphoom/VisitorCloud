@@ -9,6 +9,7 @@ import com.evrencoskun.tableview.TableView
 import com.evrencoskun.tableview.listener.ITableViewListener
 import com.wacinfo.visitorcloud.R
 import androidx.navigation.fragment.findNavController
+import com.google.gson.Gson
 import com.wacinfo.visitorcloud.ui.dialog.AboutDialog
 import com.wacinfo.visitorcloud.ui.homescreen.About
 import com.wacinfo.visitorcloud.ui.homescreen.Title
@@ -67,10 +68,28 @@ class TableViewListener(
                         mTableView.findFragment<About>().viewModel.result?.get(page)?.vehicleType.toString()
                     licensePlate =
                         mTableView.findFragment<About>().viewModel.result?.get(page)?.licensePlate.toString()
+                    follower =
+                        mTableView.findFragment<About>().viewModel.result?.get(page)?.follower.toString()
+                    department =
+                        mTableView.findFragment<About>().viewModel.result?.get(page)?.department.toString()
+                    contactTopic =
+                        mTableView.findFragment<About>().viewModel.result?.get(page)?.contactTopic.toString()
+                    etc =
+                        mTableView.findFragment<About>().viewModel.result?.get(page)?.etc.toString()
                     terminalin =
                         mTableView.findFragment<About>().viewModel.result?.get(page)?.terminalIn.toString()
                     terminal_out =
                         mTableView.findFragment<About>().viewModel.result?.get(page)?.terminalOut.toString()
+
+                    if(mTableView.findFragment<About>().viewModel.result?.get(page)?.image3?.isNotEmpty()!!){
+                        imgCamUrl2 =
+                            mTableView.findFragment<About>().viewModel.result?.get(page)?.image3?.get(0).toString()
+                    }
+                    if(mTableView.findFragment<About>().viewModel.result?.get(page)?.image4?.isNotEmpty()!!){
+                        imgCamUrl3 =
+                            mTableView.findFragment<About>().viewModel.result?.get(page)?.image4?.get(0).toString()
+                    }
+
                     visitorTimeIn =
                         mTableView.findFragment<About>().viewModel.logList?.value?.get(page)
                             ?.get(1)?.data.toString()

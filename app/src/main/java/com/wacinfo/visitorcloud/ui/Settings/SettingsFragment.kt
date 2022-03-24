@@ -33,6 +33,8 @@ class SettingsFragment : Fragment(), View.OnClickListener {
         dashboardBinding.visitorPlaceLayout.setOnClickListener(this)
         dashboardBinding.vehicleTypeLayout.setOnClickListener(this)
         dashboardBinding.licenseplateLayout.setOnClickListener(this)
+        dashboardBinding.departmentLayout.setOnClickListener(this)
+        dashboardBinding.contactTopicLayout.setOnClickListener(this)
         dashboardBinding.terminalInLayout.setOnClickListener(this)
         dashboardBinding.companyLayout.setOnClickListener(this)
         dashboardBinding.watermarkLayout.setOnClickListener(this)
@@ -72,6 +74,14 @@ class SettingsFragment : Fragment(), View.OnClickListener {
         }
         if (v == dashboardBinding.licenseplateLayout) {
             TypelistViewModel.setPageType(TypelistViewModel.VEHICLE_LICENSE)
+            findNavController().navigate(R.id.action_setting_to_list)
+        }
+        if (v == dashboardBinding.departmentLayout) {
+            TypelistViewModel.setPageType(TypelistViewModel.VISITOR_DEPARTMENT)
+            findNavController().navigate(R.id.action_setting_to_list)
+        }
+        if (v == dashboardBinding.contactTopicLayout) {
+            TypelistViewModel.setPageType(TypelistViewModel.VISITOR_CONTACTTOPIC)
             findNavController().navigate(R.id.action_setting_to_list)
         }
         if (v == dashboardBinding.terminalInLayout) {

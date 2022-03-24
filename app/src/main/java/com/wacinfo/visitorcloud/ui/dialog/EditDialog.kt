@@ -138,6 +138,45 @@ class EditDialog : BottomSheetDialogFragment(), View.OnClickListener {
 
 
                         }
+                        typelistViewModel.VISITOR_DEPARTMENT -> {
+                            val Data = RetrofitData.Property.Department()
+                            Data.userId = AppSettings.USER_ID
+                            Data.department = oldvalue
+                            Observable
+                                .just(ConnectManager().token(requireActivity(),AppSettings.REFRESH_TOKEN))
+                                .subscribeOn(Schedulers.newThread())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .doOnComplete {
+                                    deleteDepartment(Data)
+                                }
+                                .subscribe()
+                        }
+                        typelistViewModel.VISITOR_CONTACTTOPIC -> {
+                            val Data = RetrofitData.Property.ContactTopic()
+                            Data.userId = AppSettings.USER_ID
+                            Data.contactTopic = oldvalue
+                            Observable
+                                .just(ConnectManager().token(requireActivity(),AppSettings.REFRESH_TOKEN))
+                                .subscribeOn(Schedulers.newThread())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .doOnComplete {
+                                    deleteContactTopic(Data)
+                                }
+                                .subscribe()
+                        }
+                        typelistViewModel.VISITOR_ETC -> {
+                            val Data = RetrofitData.Property.ContactTopic()
+                            Data.userId = AppSettings.USER_ID
+                            Data.contactTopic = oldvalue
+                            Observable
+                                .just(ConnectManager().token(requireActivity(),AppSettings.REFRESH_TOKEN))
+                                .subscribeOn(Schedulers.newThread())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .doOnComplete {
+                                    deleteContactTopic(Data)
+                                }
+                                .subscribe()
+                        }
                     }
                 }
                 negativeButton(R.string.cancel_th)
@@ -171,6 +210,12 @@ class EditDialog : BottomSheetDialogFragment(), View.OnClickListener {
                     }
                     typelistViewModel.VEHICLE_LICENSE -> {
                         apiname = resources.getString(R.string.API_LicensePlate)
+                    }
+                    typelistViewModel.VISITOR_DEPARTMENT -> {
+                        apiname = resources.getString(R.string.API_Department)
+                    }
+                    typelistViewModel.VISITOR_CONTACTTOPIC -> {
+                        apiname = resources.getString(R.string.API_ContactTopic)
                     }
                 }
 
@@ -418,6 +463,110 @@ class EditDialog : BottomSheetDialogFragment(), View.OnClickListener {
 
         retrofit.create(API::class.java)
             .deleteLicensePlate(data, apiname)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : Observer<RetrofitData.Property> {
+                override fun onComplete() {
+                    onCloseClickListener?.invoke()
+                    dialog?.dismiss()
+                }
+
+                override fun onSubscribe(d: Disposable) {
+
+                }
+
+                override fun onNext(t: RetrofitData.Property) {
+                    PublicFunction().message(requireActivity() as Activity, t.message.toString())
+                }
+
+                override fun onError(e: Throwable) {
+                    e.printStackTrace()
+                    if (e is HttpException) {
+                        try {
+                            val jObjError = JSONObject(e.response()!!.errorBody()?.string())
+                            PublicFunction().message(
+                                requireActivity() as Activity,
+                                jObjError.getString("message")
+                            )
+                        } catch (e: Exception) {
+                            PublicFunction().message(requireActivity() as Activity, e.toString())
+                        }
+                    } else {
+                        PublicFunction().message(requireActivity() as Activity, e.toString())
+                    }
+
+                }
+            })
+    }
+    private fun deleteDepartment(data: RetrofitData.Property.Department) {
+        val url: String =
+            requireContext().resources.getString(R.string.URL) + requireContext().resources.getString(
+                R.string.PORT
+            )
+        val apiname = requireContext().resources.getString(R.string.API_Department)
+        val client: OkHttpClient =
+            OkHttpClient.Builder().addInterceptor(TokenInterceptor(requireActivity())).build()
+        val retrofit: Retrofit = Retrofit.Builder()
+            .baseUrl(url)
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build()
+
+        retrofit.create(API::class.java)
+            .deleteDepartment(data, apiname)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : Observer<RetrofitData.Property> {
+                override fun onComplete() {
+                    onCloseClickListener?.invoke()
+                    dialog?.dismiss()
+                }
+
+                override fun onSubscribe(d: Disposable) {
+
+                }
+
+                override fun onNext(t: RetrofitData.Property) {
+                    PublicFunction().message(requireActivity() as Activity, t.message.toString())
+                }
+
+                override fun onError(e: Throwable) {
+                    e.printStackTrace()
+                    if (e is HttpException) {
+                        try {
+                            val jObjError = JSONObject(e.response()!!.errorBody()?.string())
+                            PublicFunction().message(
+                                requireActivity() as Activity,
+                                jObjError.getString("message")
+                            )
+                        } catch (e: Exception) {
+                            PublicFunction().message(requireActivity() as Activity, e.toString())
+                        }
+                    } else {
+                        PublicFunction().message(requireActivity() as Activity, e.toString())
+                    }
+
+                }
+            })
+    }
+    private fun deleteContactTopic(data: RetrofitData.Property.ContactTopic) {
+        val url: String =
+            requireContext().resources.getString(R.string.URL) + requireContext().resources.getString(
+                R.string.PORT
+            )
+        val apiname = requireContext().resources.getString(R.string.API_ContactTopic)
+        val client: OkHttpClient =
+            OkHttpClient.Builder().addInterceptor(TokenInterceptor(requireActivity())).build()
+        val retrofit: Retrofit = Retrofit.Builder()
+            .baseUrl(url)
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build()
+
+        retrofit.create(API::class.java)
+            .deleteContactTopic(data, apiname)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<RetrofitData.Property> {

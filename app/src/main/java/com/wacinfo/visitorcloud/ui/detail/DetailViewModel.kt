@@ -40,6 +40,18 @@ class DetailViewModel : ViewModel() {
         Img_Car_Uri.value = uri
     }
 
+    private val Img_Car2_Uri = MutableLiveData<Uri>()
+    val Car_uri_2: LiveData<Uri> = Img_Car2_Uri
+    fun setCarUri2(uri: Uri) {
+        Img_Car2_Uri.value = uri
+    }
+
+    private val Img_Car3_Uri = MutableLiveData<Uri>()
+    val Car_uri_3: LiveData<Uri> = Img_Car3_Uri
+    fun setCarUri3(uri: Uri) {
+        Img_Car3_Uri.value = uri
+    }
+
     private val _visitorName = MutableLiveData<String>()
     val visitorName: LiveData<String> = _visitorName
     fun setVisitorName(visitorName: String) {
@@ -58,6 +70,23 @@ class DetailViewModel : ViewModel() {
 
     fun createSelectWheel(activity: Activity, list: List<String>, editText: EditText) {
 
+        val picker = OptionPicker(
+            activity,
+            list
+        )
+        picker.setOffset(2)
+        picker.selectedIndex = 0
+        picker.setTextSize(14)
+        picker.setOnOptionPickListener(object : OptionPicker.OnOptionPickListener() {
+            override fun onOptionPicked(index: Int, item: String?) {
+                editText.setText(item)
+                editText.text?.length?.let { editText.setSelection(it) }
+            }
+        })
+        picker.show()
+    }
+    fun createNumberWheel(activity: Activity, editText: EditText) {
+        val list = listOf("1","2","3","4","5","6","7","8","9","10")
         val picker = OptionPicker(
             activity,
             list

@@ -206,6 +206,10 @@
     <string name="e_stamp">E-Stamp</string>
     <string name="home_id_hint">กรอกเลขที่บ้านที่นี่</string>
     <string name="e_stamp_status">สถานะ E-Stamp</string>
+    <string name="follower">จำนวนคน</string>
+    <string name="department">บริษัทผู้ติดต่อ</string>
+    <string name="contactTopic">ติดต่อเรื่อง</string>
+    <string name="etc">อื่นๆ</string>
 
     <string-array name="items_per_page">
         <item>10</item>

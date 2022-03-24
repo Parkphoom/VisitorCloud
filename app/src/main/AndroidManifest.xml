@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.Manifest.permission.READ_PRIVILEGED_PHONE_STATE" />
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
@@ -24,7 +25,12 @@
     <uses-feature
         android:name="org.apache.http.legacy"
         android:required="false" />
-
+    <uses-permission android:name="com.sunmi.perm.LED" />
+    <uses-permission android:name="com.sunmi.perm.MSR" />
+    <uses-permission android:name="com.sunmi.perm.ICC" />
+    <uses-permission android:name="com.sunmi.perm.PINPAD" />
+    <uses-permission android:name="com.sunmi.perm.SECURITY" />
+    <uses-permission android:name="com.sunmi.perm.CONTACTLESS_CARD" />
     <application
         android:name=".utils.AppSettings"
         android:allowBackup="true"
