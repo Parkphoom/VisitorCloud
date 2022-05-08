@@ -192,7 +192,7 @@ class DetailFragment : Fragment(), View.OnClickListener {
             ViewModelProviders.of(this)[SharedViewModel::class.java]
         } ?: throw Exception("Invalid Activity")
 
-        requestVisitorId()
+//        requestVisitorId()
     }
 
     override fun onCreateView(
@@ -469,7 +469,7 @@ class DetailFragment : Fragment(), View.OnClickListener {
         }
         if (v == binding.tvRequestVid) {
             binding.vidEdtLayout.isErrorEnabled = false
-            requestVisitorId()
+            requestVisitorId(false)
         }
         if (v == binding.typelistBtn) {
             if (AppSettings.visitorType.isNullOrEmpty()) {
@@ -548,69 +548,75 @@ class DetailFragment : Fragment(), View.OnClickListener {
         }
         if (v == binding.nextBtn) {
 
-            if (binding.vidEdt.text.isNullOrEmpty()) {
-                binding.vidEdtLayout.isErrorEnabled = true
-                binding.vidEdtLayout.error = getString(R.string.necessary)
-            } else if (binding.typeEdt.text.isNullOrEmpty()) {
+//            if (binding.vidEdt.text.isNullOrEmpty()) {
+//                binding.vidEdtLayout.isErrorEnabled = true
+//                binding.vidEdtLayout.error = getString(R.string.necessary)
+//            } else
+            if (binding.typeEdt.text.isNullOrEmpty()) {
                 binding.typeEdt.error = getString(R.string.necessary)
             } else if (!binding.vidEdtLayout.isErrorEnabled && !binding.typeEdt.text.isNullOrEmpty()) {
-                val dialog = PublicFunction().retrofitDialog(requireContext())
-                if (!dialog!!.isShowing) {
-                    requireActivity().runOnUiThread {
-                        dialog.show()
+
+                if (binding.vidEdt.text.isNullOrEmpty()) {
+                    requestVisitorId(true)
+                } else {
+                    val dialog = PublicFunction().retrofitDialog(requireContext())
+                    if (!dialog!!.isShowing) {
+                        requireActivity().runOnUiThread {
+                            dialog.show()
+                        }
                     }
+                    getCheckNum(binding.vidEdt.text.toString())!!.subscribe(object :
+                        Observer<RetrofitData.Checknum> {
+                        override fun onComplete() {
+                        }
+
+                        override fun onSubscribe(d: Disposable) {
+
+                        }
+
+                        override fun onNext(t: RetrofitData.Checknum) {
+                            if (t.message!!.isEmpty()) {
+                                binding.vidEdtLayout.isErrorEnabled = false
+                                loadBlacklist(dialog)
+                            } else {
+                                dialog.cancel()
+                                binding.vidEdtLayout.isErrorEnabled = true
+                                binding.vidEdtLayout.error = "หมายเลข Visitor ถูกใช้แล้ว"
+                            }
+
+                        }
+
+                        override fun onError(e: Throwable) {
+                            dialog.cancel()
+                            var strError = ""
+                            Log.d(TAG, e.toString())
+                            strError = e.toString()
+                            if (e is HttpException) {
+                                try {
+                                    val jObjError = JSONObject(e.response()!!.errorBody()?.string())
+                                    Log.d(TAG, jObjError.getString("message"))
+                                    strError = jObjError.getString("message")
+
+                                    if (strError == "Invalid input") {
+                                        strError = getString(R.string.error_emptytext)
+                                    }
+                                } catch (e: Exception) {
+                                    e.message?.let {
+                                        Log.d(TAG, it)
+                                        strError = it
+                                    }
+
+                                }
+                            }
+
+                            PublicFunction().message(
+                                requireActivity(),
+                                strError
+                            )
+                        }
+                    })
                 }
 
-                getCheckNum(binding.vidEdt.text.toString())!!.subscribe(object :
-                    Observer<RetrofitData.Checknum> {
-                    override fun onComplete() {
-                    }
-
-                    override fun onSubscribe(d: Disposable) {
-
-                    }
-
-                    override fun onNext(t: RetrofitData.Checknum) {
-                        if (t.message!!.isEmpty()) {
-                            binding.vidEdtLayout.isErrorEnabled = false
-                            loadBlacklist(dialog)
-                        } else {
-                            dialog.cancel()
-                            binding.vidEdtLayout.isErrorEnabled = true
-                            binding.vidEdtLayout.error = "หมายเลข Visitor ถูกใช้แล้ว"
-                        }
-
-                    }
-
-                    override fun onError(e: Throwable) {
-                        dialog.cancel()
-                        var strError = ""
-                        Log.d(TAG, e.toString())
-                        strError = e.toString()
-                        if (e is HttpException) {
-                            try {
-                                val jObjError = JSONObject(e.response()!!.errorBody()?.string())
-                                Log.d(TAG, jObjError.getString("message"))
-                                strError = jObjError.getString("message")
-
-                                if (strError == "Invalid input") {
-                                    strError = getString(R.string.error_emptytext)
-                                }
-                            } catch (e: Exception) {
-                                e.message?.let {
-                                    Log.d(TAG, it)
-                                    strError = it
-                                }
-
-                            }
-                        }
-
-                        PublicFunction().message(
-                            requireActivity(),
-                            strError
-                        )
-                    }
-                })
 
 //                findNavController().navigate(R.id.action_detail_to_appointment)
             }
@@ -1353,18 +1359,18 @@ class DetailFragment : Fragment(), View.OnClickListener {
         return false
     }
 
-    fun requestVisitorId() {
+    fun requestVisitorId(isShowDialog: Boolean) {
         Observable
             .just(ConnectManager().token(requireActivity(), AppSettings.REFRESH_TOKEN))
             .subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnComplete {
-                getVid()
+                getVid(isShowDialog)
             }
             .subscribe()
     }
 
-    private fun getVid() {
+    private fun getVid(isShowDialog: Boolean) {
 
         if (requireContext() != null) {
             val url: String =
@@ -1396,6 +1402,65 @@ class DetailFragment : Fragment(), View.OnClickListener {
 
                     override fun onNext(t: RetrofitData.BookingVisitorID) {
                         viewModel.setVisitorId(t.message?.visitorNumber.toString())
+                        if (isShowDialog) {
+                            val dialog = PublicFunction().retrofitDialog(requireContext())
+                            if (!dialog!!.isShowing) {
+                                requireActivity().runOnUiThread {
+                                    dialog.show()
+                                }
+                            }
+                            getCheckNum(binding.vidEdt.text.toString())!!.subscribe(object :
+                                Observer<RetrofitData.Checknum> {
+                                override fun onComplete() {
+                                }
+
+                                override fun onSubscribe(d: Disposable) {
+
+                                }
+
+                                override fun onNext(t: RetrofitData.Checknum) {
+                                    if (t.message!!.isEmpty()) {
+                                        binding.vidEdtLayout.isErrorEnabled = false
+                                        loadBlacklist(dialog)
+                                    } else {
+                                        dialog.cancel()
+                                        binding.vidEdtLayout.isErrorEnabled = true
+                                        binding.vidEdtLayout.error = "หมายเลข Visitor ถูกใช้แล้ว"
+                                    }
+
+                                }
+
+                                override fun onError(e: Throwable) {
+                                    dialog.cancel()
+                                    var strError = ""
+                                    Log.d(TAG, e.toString())
+                                    strError = e.toString()
+                                    if (e is HttpException) {
+                                        try {
+                                            val jObjError =
+                                                JSONObject(e.response()!!.errorBody()?.string())
+                                            Log.d(TAG, jObjError.getString("message"))
+                                            strError = jObjError.getString("message")
+
+                                            if (strError == "Invalid input") {
+                                                strError = getString(R.string.error_emptytext)
+                                            }
+                                        } catch (e: Exception) {
+                                            e.message?.let {
+                                                Log.d(TAG, it)
+                                                strError = it
+                                            }
+
+                                        }
+                                    }
+
+                                    PublicFunction().message(
+                                        requireActivity(),
+                                        strError
+                                    )
+                                }
+                            })
+                        }
                     }
 
                     override fun onError(e: Throwable) {

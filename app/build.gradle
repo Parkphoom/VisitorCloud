@@ -11,8 +11,8 @@ android {
         applicationId "com.wacinfo.visitorcloud"
         minSdkVersion 22
         targetSdkVersion 30
-        versionCode 17
-        versionName "2.1.6"
+        versionCode 18
+        versionName "2.1.7"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
